@@ -1,0 +1,16 @@
+.match-photos  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+
+.match-photos .photo {
+    width: 60px;
+    height: 60px;
+    border: solid 2px #FFFFFF;
+    border-radius: 50%;     
+    background-size: contain;
+    margin-left: -10px;
+}
