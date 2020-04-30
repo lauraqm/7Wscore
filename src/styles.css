@@ -4,6 +4,11 @@ html {
     color: #707070;
 }
 
+body{
+    margin: 0 auto;
+    width: 800px;
+}
+
 
 .main-title {
     font-size: 42px;
