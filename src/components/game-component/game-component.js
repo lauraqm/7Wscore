@@ -4,7 +4,7 @@ export let create = (game, room) => {
     let gameElement = createDataContainer(game);
     let results = createWinnerData(game, room);
     Utils.appendNodeList(gameElement, results);
-    gameElement.addEventListener('click', (eventito)=> {
+    gameElement.addEventListener('click', ()=> {
         showGameData(game);
     } );
     return gameElement;
@@ -130,7 +130,7 @@ let createVictoryIcon = (victoryTypeClass) => {
 }
 
 let showGameData = (game) => {
-
+    console.log("Hello");
 }
 
 
