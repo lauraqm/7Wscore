@@ -4,6 +4,9 @@ export let create = (game, room) => {
     let gameElement = createDataContainer(game);
     let results = createWinnerData(game, room);
     Utils.appendNodeList(gameElement, results);
+    gameElement.addEventListener('click', (eventito)=> {
+        showGameData(game);
+    } );
     return gameElement;
 }
 
@@ -124,6 +127,10 @@ let getPhoto = (room, playerName) =>{
 let createVictoryIcon = (victoryTypeClass) => {
     let icon = `<div class ='winnerIcon ${victoryTypeClass}'></div>`;
     return icon;
+}
+
+let showGameData = (game) => {
+
 }
 
 
