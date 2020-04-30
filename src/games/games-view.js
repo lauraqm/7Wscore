@@ -8,9 +8,7 @@ const room = {
     name: 'Laura vs Ronald',
     players: [
           { username: 'Lau', pictureUrl: '../assets/profilePic1.jpg'},
-          { username: 'Ron', pictureUrl: '../assets/profilePic2.jpg'},
-          { username: 'Pepito', pictureUrl: '../assets/P.jpg'},
-          { username: 'Kinky', pictureUrl: '../assets/K.jpg'},
+          { username: 'Ron', pictureUrl: '../assets/profilePic2.jpg'}
     ]
 };
 
