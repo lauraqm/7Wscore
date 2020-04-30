@@ -1,0 +1,13 @@
+.main-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.main-title .vs-title {
+    font-size: x-large;
+    bottom: 0;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+

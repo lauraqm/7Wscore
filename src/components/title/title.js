@@ -5,12 +5,12 @@ export let create = (room) => {
     room.players.forEach(element => {
         const name = element.username;
         if(players != '')
-            players = players + ' vs ' + name;
+            players = players + "<span class='vs-title'> vs </span> <span>" + name + "</span>";
         else 
-            players = players + name ;
+            players = players + '<span>' + name + '</span>';
     });
     let template = `<div'> 
-                        <h1 class="main-title">${players}</h1>
+                        <div class="main-title">${players}</div>
                         <div class="underline-tittle">
                             <div class="circle-tittle"></div>
                             <div class="line-tittle"></div>
