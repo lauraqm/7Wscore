@@ -1,0 +1,81 @@
+.detail-table {
+    margin: 0 auto;
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+
+.detail-table .score-table {
+    width: 80%;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.detail-table .score-table tr{
+    border-bottom:  1px solid #D1D1D1; 
+    height: 50px;
+    vertical-align: middle;
+}
+
+.detail-table .score-table tr:first-child, 
+.detail-table .score-table tr:last-child {
+    border-bottom:  none;
+}
+
+
+.detail-table .score-table th{
+    background-color: #F4F2F2; 
+    font-weight: 500;
+    border-bottom:  none; 
+}
+
+.detail-table .icon {
+    margin: 0 auto;
+    background-size: contain;
+    border-image: none;
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+
+}
+
+.detail-table .city {
+    background-image: url("../../assets/city.svg");
+    height: 50px;
+    width: 50px;
+}
+
+.detail-table .blue {
+    background-image: url("../../assets/blue.svg");
+}
+
+.detail-table .green {
+    background-image: url("../../assets/green.svg");
+}
+
+.detail-table .yellow {
+    background-image: url("../../assets/yellow.svg");
+}
+
+.detail-table .purple {
+    background-image: url("../../assets/purple.svg");
+}
+
+.detail-table .wonder {
+    background-image: url("../../assets/pyramids.svg");
+}
+
+.detail-table .token {
+    background-image: url("../../assets/token.svg");
+}
+
+.detail-table .coin {
+    background-image: url("../../assets/coin.svg");
+}
+
+.detail-table .armyPawn {
+    background-image: url("../../assets/army.svg");
+}
+

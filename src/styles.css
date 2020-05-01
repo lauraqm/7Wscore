@@ -47,6 +47,10 @@ body{
     text-align: center;
 }
 
+.center-component {
+    margin: 0 auto;
+}
+
 .flex-container {
     display: flex;
 }
