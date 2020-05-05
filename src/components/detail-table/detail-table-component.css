@@ -38,13 +38,20 @@
     height: 25px;
     width: 25px;
     vertical-align: middle;
-
+}
+.detail-table .city-parent {
+    position: relative;
 }
 
 .detail-table .city {
     background-image: url("../../assets/city.svg");
-    height: 50px;
-    width: 50px;
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 .detail-table .blue {
