@@ -55,8 +55,7 @@ let initialize = () => {
     let gameDataContainer = document.querySelector('.game'); 
     tittle.appendChild (titleComponent.create(room));
     gameDataContainer.appendChild (gameComponent.create(game,room));
-    let oo = detailTableComponent.create(gameDetail);
-    gameDataContainer.appendChild (oo);
+    gameDataContainer.appendChild (detailTableComponent.create(gameDetail));
 }
 
 

@@ -70,15 +70,15 @@
     background-image: url("../../assets/purple.svg");
 }
 
-.detail-table .wonder {
+.detail-table .wonders {
     background-image: url("../../assets/pyramids.svg");
 }
 
-.detail-table .token {
+.detail-table .progressTokens {
     background-image: url("../../assets/token.svg");
 }
 
-.detail-table .coin {
+.detail-table .coins {
     background-image: url("../../assets/coin.svg");
 }
 
@@ -86,3 +86,6 @@
     background-image: url("../../assets/army.svg");
 }
 
+.detail-table .total {
+    background-image: url("../../assets/total.svg");
+}
