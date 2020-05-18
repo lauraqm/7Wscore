@@ -1,4 +1,5 @@
 import { Utils } from '../../services/utils.js';
+import * as photoComponent from '../photo-component/photo-component.js';
 
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);
@@ -12,8 +13,8 @@ export let create = (game, room) => {
 
 let createDataContainer = (game) => {
     let players = '';
-    game.players.forEach(player => {
-        players = players + `<div class="player"> ${player.name}: ${player.score}</div>`;
+    game.scoreCards.forEach(player => {
+        players = players + `<div class="player"> ${player.username}: ${player.score}</div>`;
     });
 
     let template = `
@@ -33,7 +34,7 @@ let createDataContainer = (game) => {
 let createWinnerData = (game, room) => {
     let icon, figurePanel;
     let winnerIndex = [];
-    let players = game.players;
+    let players = game.scoreCards;
     if(players.length === 2) {
         //The first element always is the greatest score
         if (players[0].score == players[1].score)
@@ -80,28 +81,19 @@ let createFigurePanel = (room, players, winnerIndex) => {
     let img;
     if ((winnerIndex.length > 2) || winnerIndex.length == 1){
         if (winnerIndex.length > 2) {
-            img = `
-                <div>
-                    <div class="photo player-photo-result multiWinnerIcon center-contain">${winnerIndex.length}</div>
-                </div>`;
+            img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerIndex.length}</div>`;
         }
         else {
-            let url = getPhoto(room, players[0].name);
+            let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
             img = `
-                <div>
-                    <div class="photo player-photo-result" style="background-image: url('${url}')"></div>
-                </div>`;
+                <div>${photo}</div>`;
         }
     }
     if (winnerIndex.length == 2) {
         let [player1, player2] = players; 
-        let playerPhoto1 = getPhoto(room, player1.name);
-        let playerPhoto2 = getPhoto(room, player2.name);
-        img = `
-            <div>
-                <div class="photo player-photo-result first-player-photo-overlap" style="background-image: url('${playerPhoto1}')"></div>
-                <div class="photo player-photo-result second-player-photo-overlap" style="background-image: url('${playerPhoto2}')"></div>
-            </div>`;
+        let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
+        let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');
+        img = `<div>${photo1}${photo2}</div>`;
     }
 
     let template = `
@@ -114,14 +106,6 @@ let createFigurePanel = (room, players, winnerIndex) => {
     `;
     return template;
 };
-
-let getPhoto = (room, playerName) =>{
-    let roomPlayerData = room.players.filter (player => {
-        return player.username == playerName; 
-    });
-    roomPlayerData
-    return roomPlayerData[0].pictureUrl;
-}
 
 
 let createVictoryIcon = (victoryTypeClass) => {

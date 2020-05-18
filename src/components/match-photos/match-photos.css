@@ -5,12 +5,21 @@
     margin: 20px;
 }
 
-
-.match-photos .photo {
-    width: 60px;
+.match-photos .photo.first-overlap {
+    margin-left: 8px;
     height: 60px;
-    border: solid 2px #FFFFFF;
-    border-radius: 50%;     
-    background-size: contain;
-    margin-left: -10px;
+    width: 60px;
 }
+
+.match-photos .photo.photo-overlap {
+    margin-left: -10px;
+    height: 60px;
+    width: 60px;
+}
+
+
+.match-photos .photo-component.photo.letter {
+    padding-top: 14px;
+    font-size: x-large;
+}
+

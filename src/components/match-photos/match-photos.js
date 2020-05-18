@@ -1,13 +1,16 @@
 import { Utils } from '../../services/utils.js';
+import * as photoComponent from '../photo-component/photo-component.js'
 
 export let create = (room) => {
-    let players = '';
-    room.players.forEach(element => {
-        players = players + `<div class="photo" style="background-image: url('${element.pictureUrl}')"></div>`;
+    let template = `<div class='match-photos'></div>`;
+
+    let container = Utils.htmlToElement(template);
+    room.players.forEach((element, index) => {
+        let classes = 'photo-overlap';
+        if (index === 0) {
+            classes = 'first-overlap'
+        }
+        container.appendChild(photoComponent.create(room, element.username, classes));
     });
-    let template = `<div class='match-photos'> ${players}
-                    </div>`;
-    
-    return Utils.htmlToElement(template); 
-    
+    return container;
 }

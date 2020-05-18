@@ -42,35 +42,27 @@
 }
 
 
-.game-component .photo {    
+.game-component .photo-component {    
     position: absolute;
-    width: 50px;
-    height: 50px;
-    border: solid 2px #FFFFFF;
-    border-radius: 50%;     
-    background-size: contain;
 }
 
 
 .game-component .player-photo-result {    
-    margin-left: 15px; 
+    margin-left: 11px; 
     top: 50%;
     transform: translateY(-50%);
     background-size: contain;
 }
 
-.game-component .second-player-photo-overlap {
-    margin-left: 35px;
+.game-component .player-photo-result.second-player-photo-overlap {
+    margin-left: 38px;
     z-index: 2;
 }
 
 .game-component .player-photo-result.first-player-photo-overlap {
-    margin-left: 5px;
+    margin-left: -5px;
 }
 
-.game-component .first-player-photo {
-    margin-right: 30px;
-}
 
 
 .game-component .triangle{

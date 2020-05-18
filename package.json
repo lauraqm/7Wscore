@@ -1,0 +1,23 @@
+{
+  "name": "7wscore",
+  "version": "1.0.0",
+  "description": "This project is for personal use to track scores for a boardgame called of 7 Wonders.",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lauraqm/7Wscore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lauraqm/7Wscore/issues"
+  },
+  "homepage": "https://github.com/lauraqm/7Wscore#readme",
+  "dependencies": {
+    "firebase": "^7.14.4",
+    "webpack": "^4.43.0"
+  }
+}

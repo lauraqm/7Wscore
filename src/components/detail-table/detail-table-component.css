@@ -54,19 +54,19 @@
 
 }
 
-.detail-table .blue {
+.detail-table .civilian {
     background-image: url("../../assets/blue.svg");
 }
 
-.detail-table .green {
+.detail-table .scientific {
     background-image: url("../../assets/green.svg");
 }
 
-.detail-table .yellow {
+.detail-table .commercial {
     background-image: url("../../assets/yellow.svg");
 }
 
-.detail-table .purple {
+.detail-table .guild {
     background-image: url("../../assets/purple.svg");
 }
 
@@ -74,7 +74,7 @@
     background-image: url("../../assets/pyramids.svg");
 }
 
-.detail-table .progressTokens {
+.detail-table .progress {
     background-image: url("../../assets/token.svg");
 }
 
@@ -82,7 +82,7 @@
     background-image: url("../../assets/coin.svg");
 }
 
-.detail-table .armyPawn {
+.detail-table .military {
     background-image: url("../../assets/army.svg");
 }
 

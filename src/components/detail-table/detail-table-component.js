@@ -12,7 +12,7 @@ let createTable = (gameDetail) =>{
 
 
 let merge = (players) => {
-    let rows = ["username", "blue", "green", "yellow", "purple", "wonders", "progressTokens", "coins", "armyPawn", "total"];
+    let rows = ["username", "civilian", "scientific", "commercial", "guild", "wonders", "progress", "coins", "military", "total"];
     let output = [];
     players.forEach((player) => {
         rows.forEach((rowKey, rowIndex) => {

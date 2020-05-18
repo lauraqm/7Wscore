@@ -1,49 +1,47 @@
 import * as gameComponent  from '../components/game-component/game-component.js';
 import * as titleComponent from '../components/title/title.js';
 import * as detailTableComponent from '../components/detail-table/detail-table-component.js';
-import { Utils } from '../Services/utils.js';
-
 
 const room = {
     name: 'Laura vs Ronald',
     players: [
-          { username: 'Lau', pictureUrl: '../assets/profilePic1.jpg'},
-          { username: 'Ron', pictureUrl: '../assets/profilePic2.jpg'}
+          { username: 'Lau', pictureUrl: '../assets/profilePic1.jpg', color: "#038649"},
+          { username: 'Ron', pictureUrl: '../assets/profilePic2.jpg', color: '#2E5FA5'}
     ]
 };
 
 const game = {
     id: 1,
     date: 1574496000000,
-    players: [{ name: 'Lau', score: 100 }, { name: 'Ron', score: 20}],
+    scoreCards: [{ username: 'Lau', score: 100 }, { username: 'Ron', score: 20}],
     victoryType: 'victoryPoints'
 };
 
-const gameDetail= {
+const scoreCards= {
     id:1,
     players: [
         {
             username: 'Lau',
-            blue: 9,
-            green: 3,
-            yellow: 5,
-            purple: 8,
+            civilian: 9,
+            scientific: 3,
+            commercial: 5,
+            guild: 8,
             wonders: 16,
-            progressTokens: 3,
+            progress: 3,
             coins: 3,
-            armyPawn: 5,
+            military: 5,
             total: 100
         },
         {
             username: 'Ron',
-            blue: 8,
-            green: 2,
-            yellow: 1,
-            purple: 2,
+            civilian: 8,
+            scientific: 2,
+            commercial: 1,
+            guild: 2,
             wonders: 3,
-            progressTokens: 0,
+            progress: 0,
             coins: 2,
-            armyPawn: 0,
+            military: 0,
             total: 20
         }
 
@@ -53,9 +51,9 @@ const gameDetail= {
 let initialize = () => {
     let tittle = document.querySelector('.title-container');  
     let gameDataContainer = document.querySelector('.game'); 
-    tittle.appendChild (titleComponent.create(room));
+    tittle.appendChild (titleComponent.createTitleRoom(room));
     gameDataContainer.appendChild (gameComponent.create(game,room));
-    gameDataContainer.appendChild (detailTableComponent.create(gameDetail));
+    gameDataContainer.appendChild (detailTableComponent.create(scoreCards));
 }
 
 
