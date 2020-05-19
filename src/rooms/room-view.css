@@ -1,0 +1,55 @@
+.room-view .vs-title {
+    font-size: x-large;
+    bottom: 0;
+}
+
+.room-view .title {
+    font-size: xx-large;
+    bottom: 0;
+    color: white;
+}
+
+.room-view .room-card {
+    vertical-align: top;
+    width: 200px;
+    height: 252px;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: inline-block;
+    margin: 20px;
+    background-size: cover;
+}
+
+
+.room-view .new-room {
+    color: #707070;
+    font-size: xx-large;
+    border: 1px solid #707070;
+    border-radius: 10px;
+    border-style:dashed;
+}
+.room-view .new-room .plus {
+    font-size: 50pt;
+    padding: 10px;
+}
+
+.room-view .blue-room {
+    background-image: url("../assets/room-blue.svg");
+}
+
+.room-view .green-room  {
+    background-image: url("../assets/room-green.svg");
+}
+
+.room-view .yellow-room {
+    background-image: url("../assets/room-yellow.svg");
+}
+
+.room-view .purple-room {
+    background-image: url("../assets/room-purple.svg");
+}
+
+.room-view .match-photos {
+    margin-top: 30px;
+}
