@@ -1,5 +1,6 @@
-import { Utils } from '../../services/utils.js';
-import * as photoComponent from '../photo-component/photo-component.js';
+import { Utils } from '../../services/utils';
+import * as photoComponent from '../photo-component/photo-component';
+import moment from 'moment';
 
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);

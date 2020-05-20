@@ -1,16 +1,14 @@
 import * as titleComponent from '../components/title/title.js';
 import * as matchPhotoComponent from '../components/match-photos/match-photos.js'
 import { Utils } from '../services/utils.js';
-//import * as firebaseClient from '../firebase-client.js';
-//const db = firebaseClient.db;
+import * as firebaseClient from '../firebase-client.js';
 
+const db = firebaseClient.database;
 const title = "Rooms";
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
 const container = document.querySelector('.rooms-container');
 let count = 0;
 
-
-let db = firebase.firestore();
 
 let initialize = () => {
     let tittle = document.querySelector('.title-container');

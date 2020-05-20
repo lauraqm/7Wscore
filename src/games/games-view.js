@@ -1,11 +1,11 @@
 import * as gameComponent from '../components/game-component/game-component.js';
 import * as matchPhotosComponet from '../components/match-photos/match-photos.js';
 import * as titleComponent from '../components/title/title.js';
-import { Utils } from '../Services/utils.js';
+import { Utils } from '../services/utils.js';
+import * as firebaseClient from '../firebase-client.js';
 
 
-
-let db = firebase.firestore();
+const db = firebaseClient.database;
 let roomId;
 let room;
 /*
