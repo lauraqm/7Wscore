@@ -34,6 +34,10 @@
     padding: 10px;
 }
 
+.room-view .room-card .boardgame {
+    margin-top: 37px;
+}
+
 .room-view .blue-room {
     background-image: url("../assets/room-blue.svg");
 }

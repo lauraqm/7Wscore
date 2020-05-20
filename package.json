@@ -18,6 +18,7 @@
   "homepage": "https://github.com/lauraqm/7Wscore#readme",
   "dependencies": {
     "firebase": "^7.14.4",
+    "moment": "^2.25.3",
     "webpack": "^4.43.0"
   }
 }

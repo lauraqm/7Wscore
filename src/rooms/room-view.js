@@ -9,6 +9,7 @@ const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
 const container = document.querySelector('.rooms-container');
 let count = 0;
 
+
 let db = firebase.firestore();
 
 let initialize = () => {
@@ -22,14 +23,16 @@ let renderRooms = () => {
     db.collection("rooms").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             //console.log(doc.id, " => ", doc.data());
-            createCard(doc.data());
+            container.appendChild(createCard(doc));
         });
     }).then(() => {
         container.appendChild(createNewRoomCard());
     });
 };
 
-let createCard = (roomData) => {
+let createCard = (doc) => {
+    let roomData =  doc.data();
+    let roomId = doc.id;
     if (roomData) {
         let title = "";
         let players = roomData.players;
@@ -44,17 +47,22 @@ let createCard = (roomData) => {
             count = 0;
         }
         let classForCurrentRoom = cardClass[count];
-        let card = `<div class = 'room-card ${classForCurrentRoom}'> ${title} </div>`;
-        count++;
-        
-        let cardElement =  Utils.htmlToElement(card);
+        let cardTemplate = `<div class='room-card ${classForCurrentRoom}'> ${title} </div>`;
+        let boardGameTemplate = `<div class='boardgame'>${roomData.boardGame}</div>`;
+        let cardElement =  Utils.htmlToElement(cardTemplate);
+       
         let matchPhoto = matchPhotoComponent.create (roomData);
         cardElement.appendChild(matchPhoto);
-        container.appendChild(cardElement);
+        cardElement.appendChild(Utils.htmlToElement(boardGameTemplate));
+        
+        cardElement.addEventListener('click', ()=> {
+            showGames(roomId);
+        } );
+        count++;
+        return cardElement;
     }
   
 }
-
 
 let createNewRoomCard = () => {
     let card = `<div class = 'room-card new-room'>
@@ -63,6 +71,11 @@ let createNewRoomCard = () => {
                 </div>`;
     return Utils.htmlToElement(card);     
 }
+
+function showGames (roomId) {
+    window.location.href = `/src/games/games-view.html?roomId=${roomId}`;
+}
+
 
 
 initialize();

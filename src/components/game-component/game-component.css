@@ -63,8 +63,6 @@
     margin-left: -5px;
 }
 
-
-
 .game-component .triangle{
     border-bottom: 74px solid;
     border-left: 40px solid transparent;
@@ -90,9 +88,9 @@
 
 
 .game-component .triangle {
-    border-bottom-color: #2C832F;
+     border-bottom-color: #F46161; 
   }
 
 .game-component .figure{
-    background-color: #2C832F;
+    background-color: #F46161;
 }

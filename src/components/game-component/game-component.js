@@ -16,11 +16,11 @@ let createDataContainer = (game) => {
     game.scoreCards.forEach(player => {
         players = players + `<div class="player"> ${player.username}: ${player.score}</div>`;
     });
-
+    let formattedDate = moment.unix(game.createdOn.seconds).format ('DD/MM/yyyy');
     let template = `
         <div class='game-component'>
             <div class="game-date-players">
-                <div class="bold-style">${new Date(game.date).toLocaleDateString()}</div>
+                <div class="bold-style">${formattedDate}</div>
                 <div>
                     ${players}
                 </div>
@@ -79,16 +79,23 @@ let createWinnerData = (game, room) => {
 
 let createFigurePanel = (room, players, winnerIndex) => {
     let img;
+    let colorStyleTriangle = "";
+    let colorStyleFigure = "";
+
     if ((winnerIndex.length > 2) || winnerIndex.length == 1){
         if (winnerIndex.length > 2) {
             img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerIndex.length}</div>`;
         }
         else {
+            let result = room.players.filter(currnetPlayer => currnetPlayer.username === players[0].username);
+            let color = result[0].color;
+            colorStyleTriangle = `style="border-bottom-color: ${color}"`;
+            colorStyleFigure = `style="background-color: ${color}"`;
             let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
-            img = `
-                <div>${photo}</div>`;
+            img = `<div>${photo}</div>`;
         }
     }
+
     if (winnerIndex.length == 2) {
         let [player1, player2] = players; 
         let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
@@ -98,8 +105,8 @@ let createFigurePanel = (room, players, winnerIndex) => {
 
     let template = `
         <div class="flex-container">
-            <div class="triangle"></div>
-            <div class="figure">
+            <div class="triangle" ${colorStyleTriangle}></div>
+            <div class="figure" ${colorStyleFigure}>
                 ${img}
             </div>
         </div>
