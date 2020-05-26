@@ -1,7 +1,8 @@
-import * as titleComponent from '../components/title/title.js';
-import * as matchPhotoComponent from '../components/match-photos/match-photos.js'
-import { Utils } from '../services/utils.js';
-import * as firebaseClient from '../firebase-client.js';
+import * as titleComponent from '../components/title/title';
+import  {roomService} from '../services/room-service';
+import * as matchPhotoComponent from '../components/match-photos/match-photos'
+import { Utils } from '../services/utils';
+import * as firebaseClient from '../firebase-client';
 
 const db = firebaseClient.database;
 const title = "Rooms";
@@ -18,22 +19,20 @@ let initialize = () => {
 
 
 let renderRooms = () => {
-    db.collection("rooms").get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            //console.log(doc.id, " => ", doc.data());
-            container.appendChild(createCard(doc));
+    roomService.getAllRooms()
+        .then(function (rooms) {
+            rooms.forEach(room => {
+                container.appendChild(createCard(room));
+            });
+        }).then(() => {
+            container.appendChild(createNewRoomCard());
         });
-    }).then(() => {
-        container.appendChild(createNewRoomCard());
-    });
 };
 
-let createCard = (doc) => {
-    let roomData =  doc.data();
-    let roomId = doc.id;
-    if (roomData) {
+let createCard = (room) => {
+    if (room) {
         let title = "";
-        let players = roomData.players;
+        let players = room.players;
         players.forEach(element => {
             const name = element.username;
             if (title != '')
@@ -50,15 +49,15 @@ let createCard = (doc) => {
                                 </div>
                                 <div class='leaves'></div>
                             </div>`;
-        let boardGameTemplate = `<div class='boardgame'>${roomData.boardGame}</div>`;
+        let boardGameTemplate = `<div class='boardgame'>${room.boardGame}</div>`;
         let cardElement =  Utils.htmlToElement(cardTemplate);
        
-        let matchPhoto = matchPhotoComponent.create (roomData);
+        let matchPhoto = matchPhotoComponent.create (room);
         cardElement.appendChild(matchPhoto);
         cardElement.appendChild(Utils.htmlToElement(boardGameTemplate));
         
         cardElement.addEventListener('click', ()=> {
-            showGames(roomId);
+            showGames(room.id);
         } );
         count++;
         return cardElement;
