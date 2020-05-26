@@ -19,7 +19,7 @@ let createDataContainer = (game) => {
     });
     let formattedDate = moment.unix(game.createdOn.seconds).format ('DD/MM/yyyy');
     let template = `
-        <div class='game-component'>
+        <div class='game-component pointer'>
             <div class="game-date-players">
                 <div class="bold-style">${formattedDate}</div>
                 <div>
