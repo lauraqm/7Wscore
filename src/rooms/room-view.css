@@ -1,3 +1,8 @@
+.room-view .rooms-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .room-view .vs-title {
     font-size: x-large;
     bottom: 0;
@@ -10,6 +15,7 @@
 }
 
 .room-view .room-card {
+    position: relative;
     vertical-align: top;
     width: 200px;
     height: 252px;
@@ -17,8 +23,22 @@
     padding-top: 40px;
     padding-bottom: 40px;
     display: inline-block;
-    margin: 20px;
+    margin: 20px 30px;
     background-size: cover;
+    border-radius: 10px;
+}
+
+
+.room-view .room-card .leaves {
+    position: absolute;
+    float: right;
+    height: 94px;
+    width: 50px;
+    background-image: url('../assets/leaves.svg');
+    background-size: contain;
+    right: 0;
+    bottom: 20px;
+    z-index: 0;
 }
 
 
@@ -29,6 +49,12 @@
     border-radius: 10px;
     border-style:dashed;
 }
+
+.room-view .new-room:hover {
+    background-color: #F7F7F7;
+    transition: all 0.5s linear;
+}
+
 .room-view .new-room .plus {
     font-size: 50pt;
     padding: 10px;
@@ -39,19 +65,39 @@
 }
 
 .room-view .blue-room {
-    background-image: url("../assets/room-blue.svg");
+    background-color: #1C54A3;
+}
+
+.room-view .blue-room:hover {
+    background-color: #1D457E;
+    transition: all 0.5s linear;
 }
 
 .room-view .green-room  {
-    background-image: url("../assets/room-green.svg");
+    background-color: #038649;
+}
+
+.room-view .green-room:hover  {
+    background-color: #025D33;
+    transition: all 0.5s linear;
 }
 
 .room-view .yellow-room {
-    background-image: url("../assets/room-yellow.svg");
+    background-color: #F7C93E;
+}
+
+.room-view .yellow-room:hover {
+    background-color: #F0B400;
+    transition: all 0.5s linear;
 }
 
 .room-view .purple-room {
-    background-image: url("../assets/room-purple.svg");
+    background-color: #762876;
+}
+
+.room-view .purple-room:hover {
+    background-color: #690769;
+    transition: all 0.5s linear;
 }
 
 .room-view .match-photos {

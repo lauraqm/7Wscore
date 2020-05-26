@@ -69,3 +69,7 @@ body{
 .bold-style {
     font-weight: 400;
 }
+
+.pointer {
+    cursor: pointer;
+}

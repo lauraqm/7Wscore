@@ -45,7 +45,11 @@ let createCard = (doc) => {
             count = 0;
         }
         let classForCurrentRoom = cardClass[count];
-        let cardTemplate = `<div class='room-card ${classForCurrentRoom}'> ${title} </div>`;
+        let cardTemplate = `<div class='room-card pointer ${classForCurrentRoom}'>
+                                <div>${title} 
+                                </div>
+                                <div class='leaves'></div>
+                            </div>`;
         let boardGameTemplate = `<div class='boardgame'>${roomData.boardGame}</div>`;
         let cardElement =  Utils.htmlToElement(cardTemplate);
        
@@ -63,7 +67,7 @@ let createCard = (doc) => {
 }
 
 let createNewRoomCard = () => {
-    let card = `<div class = 'room-card new-room'>
+    let card = `<div class = 'pointer room-card new-room'>
                     <div class='plus'>+</div>
                     <div>New room</div>
                 </div>`;
