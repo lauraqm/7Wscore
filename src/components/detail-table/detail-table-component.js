@@ -4,8 +4,15 @@ export let create = (gameDetail) => {
     return createTable(gameDetail);
 }
 
-let createTable = (gameDetail) =>{
-    let rows = merge (gameDetail.players);
+let createTable = (gameDetail) => {
+    let scoreCards = [];
+    gameDetail.forEach((player) => {
+        let scoreCard = player.scores;
+        scoreCard.username = player.player;
+        scoreCards.push(scoreCard)
+    });
+
+    let rows = merge(scoreCards);
     let table = generateTable(rows);
     return Utils.htmlToElement(table);
 }
@@ -30,7 +37,7 @@ let merge = (players) => {
     return output;
 }
 
-let generateTable = (rows) => { 
+let generateTable = (rows) => {
     let body = "";
     rows.forEach((row, rowIndex) => {
         let tds = "";
@@ -53,9 +60,9 @@ let generateTable = (rows) => {
             }
             else {
                 tds += `<td>${columnValue}</td>`;
-            }           
+            }
         });
-        
+
         body += `<tr>${tds}</tr>`;
     });
 
@@ -66,6 +73,6 @@ let generateTable = (rows) => {
                         </tbody>
                     </table>
                 </div>`
-                ;
+        ;
     return table;
 }
