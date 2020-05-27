@@ -7,7 +7,7 @@ export let create = (game, room) => {
     let results = createWinnerData(game, room);
     Utils.appendNodeList(gameElement, results);
     gameElement.addEventListener('click', ()=> {
-        showGameData(game);
+        showGameData(game.id, room.id);
     } );
     return gameElement;
 }
@@ -121,8 +121,8 @@ let createVictoryIcon = (victoryTypeClass) => {
     return icon;
 }
 
-let showGameData = (game) => {
-    console.log("Hello");
+let showGameData = (gameId, roomId) => {
+    window.location.href = `../game-detail/game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
 }
 
 

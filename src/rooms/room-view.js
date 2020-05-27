@@ -1,10 +1,8 @@
 import * as titleComponent from '../components/title/title';
-import  {roomService} from '../services/room-service';
 import * as matchPhotoComponent from '../components/match-photos/match-photos'
+import { roomService } from '../services/room-service';
 import { Utils } from '../services/utils';
-import * as firebaseClient from '../firebase-client';
 
-const db = firebaseClient.database;
 const title = "Rooms";
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
 const container = document.querySelector('.rooms-container');
@@ -16,7 +14,6 @@ let initialize = () => {
     tittle.appendChild(titleComponent.create(title));
     renderRooms();
 }
-
 
 let renderRooms = () => {
     roomService.getAllRooms()

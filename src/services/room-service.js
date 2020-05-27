@@ -15,5 +15,22 @@ export let getAllRooms = () => {
 
 };
 
-export let roomService = {getAllRooms}
+let getRoom = (roomId) => {
+    let room;
+    return db.collection("rooms").doc(roomId).get().then(function (doc) {
+        if (doc.exists) {
+            room = doc.data();
+            room.id = doc.id;
+            return room;
+        } else {
+            return null;
+        }
+    }).catch(function (error) {
+        console.log("Error getting room:", error);
+        return null;
+    });
+}
+
+
+export let roomService = {getAllRooms, getRoom}
 
