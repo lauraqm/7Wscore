@@ -1,6 +1,8 @@
 import { Utils } from '../../services/utils';
 import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
+import pickBy from 'lodash-es/pickBy';
+import keys from 'lodash-es/keys';
 
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);
@@ -34,32 +36,13 @@ let createDataContainer = (game) => {
 
 let createWinnerData = (game, room) => {
     let icon, figurePanel;
-    let winnerIndex = [];
+    let winnerCount = 1; //Default because the most common it's just 1 winner
     let players = game.scoreCards;
-    if(players.length === 2) {
-        //The first element always is the greatest score
-        if (players[0].score == players[1].score)
-            winnerIndex = [0,1];
-        else winnerIndex = [0];
-    }
-    else {
-        for (let index = 0; index < players.length; index++) {
-            //const element = players[index];
-            let current = players[index];
-            let previous = players[index-1];
-            let next = players[index+1];
-            if (next) {
-                if ((current.score == next.score) || (current.score == previous.score)) {
-                    winnerIndex.push(index);
-                }
-            }
-            else {
-                if (current.score == previous.score) {
-                    winnerIndex.push(index);
-                }
-            }
-        }
-    }
+
+    //The first player always is the highest score
+    let highestScore = players[0].score;
+    winnerCount = (keys(pickBy(players, {score: highestScore}))).length;
+    
     switch (game.victoryType) {
         case 'army':
             icon = createVictoryIcon('armyIcon');
@@ -73,35 +56,37 @@ let createWinnerData = (game, room) => {
             break;
     }
     
-    figurePanel = createFigurePanel (room, players, winnerIndex);
+    figurePanel = createFigurePanel (room, players, winnerCount);
     return Utils.htmlToElements(icon + figurePanel);
 }
 
 
-let createFigurePanel = (room, players, winnerIndex) => {
+let createFigurePanel = (room, players, winnerCount) => {
     let img;
     let colorStyleTriangle = "";
     let colorStyleFigure = "";
 
-    if ((winnerIndex.length > 2) || winnerIndex.length == 1){
-        if (winnerIndex.length > 2) {
-            img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerIndex.length}</div>`;
-        }
-        else {
+    switch (winnerCount) {
+        //Multiple winners
+        case winnerCount > 2: 
+            img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerCount}</div>`;
+            break;
+        //Two winners
+        case winner === 2:
+            let [player1, player2] = players; 
+            let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
+            let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');
+            img = `<div>${photo1}${photo2}</div>`;
+            break;
+        //Just 1 winner
+        default:
             let result = room.players.filter(currnetPlayer => currnetPlayer.username === players[0].username);
             let color = result[0].color;
             colorStyleTriangle = `style="border-bottom-color: ${color}"`;
             colorStyleFigure = `style="background-color: ${color}"`;
             let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
             img = `<div>${photo}</div>`;
-        }
-    }
-
-    if (winnerIndex.length == 2) {
-        let [player1, player2] = players; 
-        let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
-        let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');
-        img = `<div>${photo1}${photo2}</div>`;
+            break;
     }
 
     let template = `

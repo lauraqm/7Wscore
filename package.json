@@ -20,6 +20,7 @@
   "homepage": "https://github.com/lauraqm/7Wscore#readme",
   "dependencies": {
     "firebase": "^7.14.4",
+    "lodash-es": "^4.17.15",
     "moment": "^2.25.3"
   },
   "devDependencies": {
