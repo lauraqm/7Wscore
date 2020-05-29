@@ -3,6 +3,7 @@ import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
 import pickBy from 'lodash-es/pickBy';
 import keys from 'lodash-es/keys';
+import find from 'lodash-es/find'
 
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);
@@ -66,27 +67,24 @@ let createFigurePanel = (room, players, winnerCount) => {
     let colorStyleTriangle = "";
     let colorStyleFigure = "";
 
-    switch (winnerCount) {
-        //Multiple winners
-        case winnerCount > 2: 
-            img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerCount}</div>`;
-            break;
-        //Two winners
-        case winner === 2:
-            let [player1, player2] = players; 
-            let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
-            let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');
-            img = `<div>${photo1}${photo2}</div>`;
-            break;
-        //Just 1 winner
-        default:
-            let result = room.players.filter(currnetPlayer => currnetPlayer.username === players[0].username);
-            let color = result[0].color;
-            colorStyleTriangle = `style="border-bottom-color: ${color}"`;
-            colorStyleFigure = `style="background-color: ${color}"`;
-            let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
-            img = `<div>${photo}</div>`;
-            break;
+    //Multiple winners
+    if(winnerCount > 2) {
+        img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerCount}</div>`;
+    }
+    //Two winners
+    else if(winnerCount === 2) {
+        let [player1, player2] = players; 
+        let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
+        let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');
+        img = `<div>${photo1}${photo2}</div>`;
+    }
+    //Just 1 winner
+    else {
+        let result = find(room.players, function(o) { return o.username === players[0].username; });
+        colorStyleTriangle = `style="border-bottom-color: ${result.color}"`;
+        colorStyleFigure = `style="background-color: ${result.color}"`;
+        let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
+        img = `<div>${photo}</div>`;
     }
 
     let template = `
