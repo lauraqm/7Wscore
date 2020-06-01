@@ -1,5 +1,7 @@
 import { Utils } from '../../services/utils.js';
 
+import './title.css';
+
 export let createTitleRoom = (room) => {
     let players = '';
     room.players.forEach(element => {

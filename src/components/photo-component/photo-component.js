@@ -1,5 +1,7 @@
 import { Utils } from '../../services/utils.js';
 
+import "./photo-component.css";
+
 export let create = (room, playerName, classes) => {
     let template = createAsString (room, playerName, classes);
     return Utils.htmlToElement(template);   

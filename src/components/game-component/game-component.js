@@ -3,6 +3,8 @@ import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
 import find from 'lodash-es/find'
 
+//import './game-component.css';
+
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);
     let results = createWinnerData(game, room);
