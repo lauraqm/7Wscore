@@ -1,8 +1,6 @@
 import { Utils } from '../../services/utils';
 import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
-import pickBy from 'lodash-es/pickBy';
-import keys from 'lodash-es/keys';
 import find from 'lodash-es/find'
 
 export let create = (game, room) => {
@@ -39,10 +37,9 @@ let createWinnerData = (game, room) => {
     let icon, figurePanel;
     let winnerCount = 1; //Default because the most common it's just 1 winner
     let players = game.scoreCards;
-
     //The first player always is the highest score
     let highestScore = players[0].score;
-    winnerCount = (keys(pickBy(players, {score: highestScore}))).length;
+    winnerCount = find(players, {score: highestScore}).length;
     
     switch (game.victoryType) {
         case 'army':
@@ -80,7 +77,7 @@ let createFigurePanel = (room, players, winnerCount) => {
     }
     //Just 1 winner
     else {
-        let result = find(room.players, function(o) { return o.username === players[0].username; });
+        let result = find(room.players, { username: players[0].username });
         colorStyleTriangle = `style="border-bottom-color: ${result.color}"`;
         colorStyleFigure = `style="background-color: ${result.color}"`;
         let photo = photoComponent.createAsString (room, players[0].username, 'player-photo-result first-player-photo');
