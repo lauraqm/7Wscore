@@ -1,9 +1,10 @@
 import { Utils } from '../../services/utils';
 import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
-import find from 'lodash-es/find'
+import find from 'lodash-es/find';
+import filter from 'lodash-es/filter';
 
-//import './game-component.css';
+import './game-component.scss';
 
 export let create = (game, room) => {
     let gameElement = createDataContainer(game);
@@ -41,7 +42,7 @@ let createWinnerData = (game, room) => {
     let players = game.scoreCards;
     //The first player always is the highest score
     let highestScore = players[0].score;
-    winnerCount = find(players, {score: highestScore}).length;
+    winnerCount = filter(players, {score: highestScore}).length;
     
     switch (game.victoryType) {
         case 'army':
@@ -68,10 +69,10 @@ let createFigurePanel = (room, players, winnerCount) => {
 
     //Multiple winners
     if(winnerCount > 2) {
-        img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">${winnerCount}</div>`;
+        img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">+${winnerCount}</div>`;
     }
     //Two winners
-    else if(winnerCount === 2) {
+    else if(winnerCount == 2) {
         let [player1, player2] = players; 
         let photo1 = photoComponent.createAsString (room, player1.username, 'player-photo-result first-player-photo-overlap');
         let photo2 = photoComponent.createAsString (room, player2.username, 'player-photo-result second-player-photo-overlap');

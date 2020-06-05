@@ -1,0 +1,100 @@
+$icon-size: 40px;
+$default-color: #F46161;
+
+.game-component{  
+    border-radius: 50px;
+    border: #C9C9C9 1px solid;
+    margin: 21px;
+    padding-left: 25px;
+    display: flex;
+
+
+    .game-date-players {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .player {
+        display: inline-flex;
+        width: 100px;
+        margin-top: 10px;
+    }
+
+    .winnerIcon {
+        width: $icon-size;
+        height: $icon-size;
+        margin-top: 17px;
+        background-size: contain;
+        border-image: none;
+        background-repeat: no-repeat;
+    }
+
+    .armyIcon {
+        background-image: url("../../assets/army.svg");
+    }
+
+    .civilianIcon {
+        background-image: url("../../assets/civilian.svg");
+    }
+
+    .scienceIcon {
+        background-image: url("../../assets/science.svg");
+    }
+
+
+    .photo-component {    
+        position: absolute;
+    }
+
+
+    .player-photo-result {    
+        margin-left: 11px; 
+        top: 50%;
+        transform: translateY(-50%);
+        background-size: contain;
+    
+        &.second-player-photo-overlap {
+            margin-left: 38px;
+            z-index: 2;
+        }
+    
+        &.first-player-photo-overlap {
+            margin-left: -5px;
+        }
+    }
+
+    .triangle{
+        border-bottom: 74px solid;
+        border-left: 40px solid transparent;
+        z-index: -1;
+    }
+
+    .figure{
+        position: relative;
+        height: 74px;
+        width: 100px;
+        border-top-right-radius: 50px ;
+        border-bottom-right-radius: 50px;
+        z-index: -1;
+    }
+
+    .multiWinnerIcon {
+        background-color: #C3C928;
+        padding-top: 12px;
+        font-size: large;
+        color: white;
+        font-weight: 400;
+    }
+
+
+    .triangle {
+        border-bottom-color: $default-color; 
+    }
+
+    .figure{
+        background-color: $default-color;
+    }
+}

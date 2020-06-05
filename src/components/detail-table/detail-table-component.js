@@ -1,5 +1,7 @@
 import { Utils } from '../../services/utils.js';
 
+import './detail-table-component.scss';
+
 export let create = (gameDetail) => {
     return createTable(gameDetail);
 }
