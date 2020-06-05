@@ -1,6 +1,6 @@
 import { Utils } from '../../services/utils.js';
 
-import './title.css';
+import './title.scss';
 
 export let createTitleRoom = (room) => {
     let players = '';
