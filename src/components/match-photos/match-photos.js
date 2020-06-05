@@ -1,7 +1,7 @@
 import { Utils } from '../../services/utils.js';
 import * as photoComponent from '../photo-component/photo-component.js';
 
-import './match-photos.css';
+import './match-photos.scss';
 
 export let create = (room) => {
     let template = `<div class='match-photos'></div>`;
