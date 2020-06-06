@@ -3,6 +3,8 @@ import * as matchPhotoComponent from '../components/match-photos/match-photos'
 import { roomService } from '../services/room-service';
 import { Utils } from '../services/utils';
 
+import './room-view.scss';
+
 const title = "Rooms";
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
 const container = document.querySelector('.rooms-container');
