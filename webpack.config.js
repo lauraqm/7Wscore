@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -10,26 +10,41 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist')
   },
   mode: 'development',
-  plugins: [new MiniCssExtractPlugin()],
+  devtool: 'eval-source-map',
+  devServer: {
+    compress: true,
+    port: 9000,
+    openPage: 'room-view.html',
+    contentBase: path.join(__dirname, 'dist')
+  },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['room-view'],
+      template: './src/rooms/room-view.html',
+      filename: 'room-view.html'
+    })
+  ],
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+          'css-loader'
+        ]
       },
       {
         test: /\.scss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader',
-        ],
+          'sass-loader'
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -37,12 +52,16 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'assets/images',
+              outputPath: 'assets/images'
             }
           }
-        ],
+        ]
       },
-    ],
-  },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      }
+    ]
+  }
 };
-
