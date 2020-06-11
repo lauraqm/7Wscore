@@ -1,6 +1,10 @@
 const path = require('path');
+//  Plug in to minify CSS
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//  Plug in to move HTML files to ./dist
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+//  Plug in to move assets to ./dist
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -27,6 +31,11 @@ module.exports = {
       chunks: ['room-view'],
       template: './src/rooms/room-view.html',
       filename: 'room-view.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/assets/profilePictures', to: 'assets/profilePictures' }
+      ]
     })
   ],
   module: {
