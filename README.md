@@ -8,5 +8,9 @@ To initialize this project you should:
 npm install && npm run build
 ```
 
+To run just ESLint run this command
+```
+npm run lint
+```
 
  

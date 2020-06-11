@@ -5,42 +5,36 @@ import { Utils } from '../services/utils.js';
 import { roomService } from '../services/room-service';
 import { gameService } from '../services/game-service';
 
-
 let roomId;
-let getParams = () => {
-    const query = window.location.search;
-    const urlParams = new URLSearchParams(query);
-    roomId = urlParams.get('roomId');
-}
+const getParams = () => {
+  const query = window.location.search;
+  const urlParams = new URLSearchParams(query);
+  roomId = urlParams.get('roomId');
+};
 
-let getRoomData = () => {
-
-    roomService.getRoom(roomId).then(function (room) {
-        let tittle = document.querySelector('.title-container');
-        let photoContainer = document.querySelector('.photo-match-container');
-        tittle.appendChild(titleComponent.createTitleRoom(room));
-        photoContainer.appendChild(matchPhotosComponet.create(room));
-        gameService.getGamesByRoom(roomId).then(function (games) {
-            renderGames(room, games);
-        });
+const getRoomData = () => {
+  roomService.getRoom(roomId).then(function (room) {
+    const tittle = document.querySelector('.title-container');
+    const photoContainer = document.querySelector('.photo-match-container');
+    tittle.appendChild(titleComponent.createTitleRoom(room));
+    photoContainer.appendChild(matchPhotosComponet.create(room));
+    gameService.getGamesByRoom(roomId).then(function (games) {
+      renderGames(room, games);
     });
+  });
+};
 
-}
+const renderGames = (room, games) => {
+  const mainNode = document.querySelector('.games-view');
+  games.forEach(game => {
+    Utils.sortPlayers(game.scoreCards);
+    mainNode.appendChild(gameComponent.create(game, room));
+  });
+};
 
-let renderGames = (room, games) => {
-    const mainNode = document.querySelector('.games-view');
-    games.forEach(game => {
-        Utils.sortPlayers(game.scoreCards);
-        mainNode.appendChild(gameComponent.create(game, room));
-    });
-}
-
-let initialize = () => {
-    getParams();
-    getRoomData();
-}
+const initialize = () => {
+  getParams();
+  getRoomData();
+};
 
 initialize();
-
-
-

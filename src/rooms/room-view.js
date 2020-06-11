@@ -1,79 +1,81 @@
 import * as titleComponent from '../components/title/title';
-import * as matchPhotoComponent from '../components/match-photos/match-photos'
+import * as matchPhotoComponent from '../components/match-photos/match-photos';
 import { roomService } from '../services/room-service';
 import { Utils } from '../services/utils';
 
-const title = "Rooms";
+import '../general-styles/reset-css.css';
+import '../general-styles/styles.css';
+import './room-view.scss';
+
+const title = 'Rooms';
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
 const container = document.querySelector('.rooms-container');
 let count = 0;
 
-
-let initialize = () => {
-    let tittle = document.querySelector('.title-container');
-    tittle.appendChild(titleComponent.create(title));
-    renderRooms();
-}
-
-let renderRooms = () => {
-    roomService.getAllRooms()
-        .then(function (rooms) {
-            rooms.forEach(room => {
-                container.appendChild(createCard(room));
-            });
-        }).then(() => {
-            container.appendChild(createNewRoomCard());
-        });
+const initialize = () => {
+  const tittle = document.querySelector('.title-container');
+  tittle.appendChild(titleComponent.create(title));
+  renderRooms();
 };
 
-let createCard = (room) => {
-    if (room) {
-        let title = "";
-        let players = room.players;
-        players.forEach(element => {
-            const name = element.username;
-            if (title != '')
-                title = title + `<span class='vs-title'> vs </span> <span class='title'>${name}</span>`;
-            else
-                title = title + `<span class='title'>${name}</span>`;
-        });
-        if(count == cardClass.length) {
-            count = 0;
-        }
-        let classForCurrentRoom = cardClass[count];
-        let cardTemplate = `<div class='room-card pointer ${classForCurrentRoom}'>
+const renderRooms = () => {
+  roomService.getAllRooms()
+    .then(function (rooms) {
+      rooms.forEach(room => {
+        container.appendChild(createCard(room));
+      });
+    }).then(() => {
+      container.appendChild(createNewRoomCard());
+    });
+};
+
+const createCard = (room) => {
+  if (room) {
+    let title = '';
+    const players = room.players;
+    players.forEach(element => {
+      const name = element.username;
+      if (title !== '') {
+        title = title + `<span class='vs-title'> vs </span> <span class='title'>${name}</span>`;
+      }
+      else {
+        title = title + `<span class='title'>${name}</span>`;
+      }
+    });
+    if (count === cardClass.length) {
+      count = 0;
+    }
+    const classForCurrentRoom = cardClass[count];
+    const cardTemplate = `<div class='room-card pointer ${classForCurrentRoom}'>
                                 <div>${title} 
                                 </div>
                                 <div class='leaves'></div>
                             </div>`;
-        let boardGameTemplate = `<div class='boardgame'>${room.boardGame}</div>`;
-        let cardElement =  Utils.htmlToElement(cardTemplate);
-       
-        let matchPhoto = matchPhotoComponent.create (room);
-        cardElement.appendChild(matchPhoto);
-        cardElement.appendChild(Utils.htmlToElement(boardGameTemplate));
-        
-        cardElement.addEventListener('click', ()=> {
-            showGames(room.id);
-        } );
-        count++;
-        return cardElement;
-    }
-  
-}
+    const boardGameTemplate = `<div class='boardgame'>${room.boardGame}</div>`;
+    const cardElement = Utils.htmlToElement(cardTemplate);
 
-let createNewRoomCard = () => {
-    let card = `<div class = 'pointer room-card new-room'>
+    const matchPhoto = matchPhotoComponent.create(room);
+    cardElement.appendChild(matchPhoto);
+    cardElement.appendChild(Utils.htmlToElement(boardGameTemplate));
+
+    cardElement.addEventListener('click', () => {
+      showGames(room.id);
+    });
+    count++;
+    return cardElement;
+  }
+};
+
+const createNewRoomCard = () => {
+  const card = `<div class = 'pointer room-card new-room'>
                     <div class='plus'>+</div>
                     <div>New room</div>
                 </div>`;
-    return Utils.htmlToElement(card);     
-}
+  return Utils.htmlToElement(card);
+};
 
 function showGames (roomId) {
-    window.location.href = `/src/games/games-view.html?roomId=${roomId}`;
-}
-
-
+  window.location.href = `/src/games/games-view.html?roomId=${roomId}`;
+};
 
 initialize();

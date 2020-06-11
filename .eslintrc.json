@@ -1,0 +1,17 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "rules": {
+      "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
+      "brace-style": ["error", "stroustrup", { "allowSingleLine": true }] 
+    }
+}

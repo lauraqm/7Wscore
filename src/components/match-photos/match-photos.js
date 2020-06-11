@@ -1,16 +1,17 @@
 import { Utils } from '../../services/utils.js';
-import * as photoComponent from '../photo-component/photo-component.js'
+import * as photoComponent from '../photo-component/photo-component.js';
 
-export let create = (room) => {
-    let template = `<div class='match-photos'></div>`;
+import './match-photos.scss';
 
-    let container = Utils.htmlToElement(template);
-    room.players.forEach((element, index) => {
-        let classes = 'photo-overlap';
-        if (index === 0) {
-            classes = 'first-overlap'
-        }
-        container.appendChild(photoComponent.create(room, element.username, classes));
-    });
-    return container;
-}
+export const create = (room) => {
+  const template = '<div class="match-photos"></div>';
+  const container = Utils.htmlToElement(template);
+  room.players.forEach((element, index) => {
+    let classes = 'photo-overlap';
+    if (index === 0) {
+      classes = 'first-overlap';
+    }
+    container.appendChild(photoComponent.create(room, element.username, classes));
+  });
+  return container;
+};

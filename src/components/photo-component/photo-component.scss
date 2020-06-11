@@ -1,0 +1,23 @@
+@use 'src/general-styles/_color-schema' as colors;
+
+$photo-size: 60px;
+
+.photo-component {
+    //.photo-component.photo
+    &.photo {
+        width: $photo-size;
+        height: $photo-size;
+        border: solid 2px colors.$photo-border;
+        border-radius: 50%;     
+        background-size: contain;
+    }
+    //.photo-component.photo.letter
+    &.letter {
+        text-align: center;
+        vertical-align: middle;
+        font-size: large;
+        font-weight: 400;
+        color: colors.$photo-letter;
+        padding-top: 12px;
+    }
+}
