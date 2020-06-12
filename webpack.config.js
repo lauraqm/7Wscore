@@ -1,5 +1,5 @@
 const path = require('path');
-//  Plug in to minify CSS
+//  Plug in to extract all css and put them in a single output
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //  Plug in to move HTML files to ./dist
 const HtmlWebpackPlugin = require('html-webpack-plugin');
