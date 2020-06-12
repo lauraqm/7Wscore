@@ -75,7 +75,7 @@ const createNewRoomCard = () => {
 };
 
 function showGames (roomId) {
-  window.location.href = `/src/games/games-view.html?roomId=${roomId}`;
+  window.location.href = `games-view.html?roomId=${roomId}`;
 };
 
 initialize();

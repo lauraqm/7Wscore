@@ -5,6 +5,9 @@ import { Utils } from '../services/utils.js';
 import { roomService } from '../services/room-service';
 import { gameService } from '../services/game-service';
 
+import '../general-styles/reset-css.css';
+import '../general-styles/styles.css';
+
 let roomId;
 const getParams = () => {
   const query = window.location.search;

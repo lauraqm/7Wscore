@@ -102,5 +102,5 @@ const createVictoryIcon = (victoryTypeClass) => {
 };
 
 const showGameData = (gameId, roomId) => {
-  window.location.href = `../game-detail/game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
+  window.location.href = `game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
 };

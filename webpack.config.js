@@ -32,6 +32,18 @@ module.exports = {
       template: './src/rooms/room-view.html',
       filename: 'room-view.html'
     }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['games-view'],
+      template: './src/games/games-view.html',
+      filename: 'games-view.html'
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['game-detail-view'],
+      template: './src/game-detail/game-detail-view.html',
+      filename: 'game-detail-view.html'
+    }),
     new CopyPlugin({
       patterns: [
         { from: './src/assets/profilePictures', to: 'assets/profilePictures' }

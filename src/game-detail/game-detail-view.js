@@ -4,6 +4,9 @@ import * as detailTableComponent from '../components/detail-table/detail-table-c
 import { gameService } from '../services/game-service';
 import { roomService } from '../services/room-service';
 
+import '../general-styles/reset-css.css';
+import '../general-styles/styles.css';
+
 let roomId, gameId;
 
 const getParams = () => {
