@@ -14,6 +14,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
+    publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'development',
@@ -22,7 +23,8 @@ module.exports = {
     compress: true,
     port: 9000,
     openPage: 'room-view.html',
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
+    publicPath: 'http://localhost:3000/dist/'
   },
   plugins: [
     new MiniCssExtractPlugin(),
