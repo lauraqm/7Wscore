@@ -8,23 +8,28 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
+    entry: './src/index.js'
+    /*
     'room-view': './src/rooms/room-view.js',
     'games-view': './src/games/games-view.js',
     'game-detail-view': './src/game-detail/game-detail-view.js'
+    */
   },
   output: {
-    filename: '[name].js',
+    //  filename: '[name].js',
+    filename: 'bundle.js',
     publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: { extensions: ['*', '.js', '.jsx'] },
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
     compress: true,
     port: 9000,
-    openPage: 'room-view.html',
-    contentBase: path.join(__dirname, 'dist'),
-    publicPath: 'http://localhost:3000/dist/'
+    // openPage: 'room-view.html',
+    contentBase: path.join(__dirname, 'public/'),
+    publicPath: 'http://localhost:9000/dist/'
   },
   plugins: [
     new MiniCssExtractPlugin(),
@@ -81,10 +86,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
         use: [
-          'babel-loader',
+          {
+            loader: 'babel-loader',
+            options: { presets: ['@babel/env'] }
+          },
           'eslint-loader'
         ]
       }
