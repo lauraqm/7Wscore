@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.js';
+import RoomBoard from './react-components/room/room.jsx';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<RoomBoard />, document.getElementById('rooms-container'));

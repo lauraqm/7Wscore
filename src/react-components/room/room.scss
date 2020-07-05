@@ -1,0 +1,113 @@
+@use 'src/general-styles/_color-schema' as colors;
+
+$transition: all 0.5s linear;
+
+
+.room-view{
+
+    .rooms-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .vs-title {
+        font-size: x-large;
+        bottom: 0;
+    }
+
+    .title {
+        font-size: xx-large;
+        bottom: 0;
+        color: colors.$room-font-color;
+    }
+
+    .room-card {
+        position: relative;
+        vertical-align: top;
+        width: 200px;
+        height: 252px;
+        color: colors.$room-font-color;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        display: inline-block;
+        margin: 20px 30px;
+        background-size: cover;
+        border-radius: 10px;
+
+        .leaves {
+            position: absolute;
+            float: right;
+            height: 94px;
+            width: 50px;
+            background-image: url('../../assets/leaves.svg');
+            background-size: contain;
+            right: 0;
+            bottom: 20px;
+            z-index: 0;
+        }
+
+        .boardgame {
+            margin-top: 37px;
+        }
+    }
+
+    .new-room {
+        color: colors.$new-room;
+        font-size: xx-large;
+        border: 1px solid colors.$new-room;
+        border-radius: 10px;
+        border-style:dashed;
+        
+        .plus {
+            font-size: 50pt;
+            padding: 10px;
+        }
+
+        &:hover {
+            background-color: colors.$new-room-hover;
+            transition: $transition;
+        }
+    }
+    
+
+    .blue-room {
+        background-color: colors.$blue-room;
+
+        &:hover {
+            background-color: colors.$blue-room-hover;
+            transition: $transition;
+        }
+    }
+
+    .green-room  {
+        background-color: colors.$green-room;
+
+        &:hover  {
+            background-color: colors.$green-room-hover;
+            transition: $transition;
+        }
+    }
+
+
+    .yellow-room {
+        background-color: colors.$yellow-room;
+
+        &:hover {
+            background-color: colors.$yellow-room-hover;
+            transition: $transition;
+        }
+    }
+
+    .purple-room {
+        background-color: colors.$purple-room;
+        
+        &:hover {
+            background-color: colors.$purple-room-hover;
+            transition: $transition;
+        }
+    }
+
+    .match-photos {
+        margin-top: 30px;
+    }
+}

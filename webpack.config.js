@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     //  filename: '[name].js',
-    filename: 'bundle.js',
+    filename: 'entry.js',
     publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
@@ -50,6 +50,12 @@ module.exports = {
       chunks: ['game-detail-view'],
       template: './src/game-detail/game-detail-view.html',
       filename: 'game-detail-view.html'
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['entry'],
+      template: './public/index.html',
+      filename: 'index.html'
     }),
     new CopyPlugin({
       patterns: [

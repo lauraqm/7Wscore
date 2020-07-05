@@ -8,9 +8,6 @@ import { gameService } from '../services/game-service';
 import '../general-styles/reset-css.css';
 import '../general-styles/styles.css';
 
-const myVar = 'Laurita';
-console.log(myVar);
-
 let roomId;
 const getParams = () => {
   const query = window.location.search;
