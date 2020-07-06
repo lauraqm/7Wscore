@@ -1,0 +1,36 @@
+.main-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    .vs-title {
+        font-size: x-large;
+        bottom: 0;
+        margin-right: 11px;
+        margin-left: 11px;
+    }
+  }
+
+.underline-tittle {
+  display: flex;
+  width: 570px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.circle-tittle {
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  background-color: #C9C9C9;
+  
+}
+
+.line-tittle {
+  border-bottom: solid 1px;
+  border-color: #C9C9C9;
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+  margin-bottom: 4px;
+}

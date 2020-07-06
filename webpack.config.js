@@ -8,16 +8,16 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    entry: './src/index.js'
+    //  entry: './src/index.js'
+    room: './src/react-components/room/room.jsx'
     /*
-    'room-view': './src/rooms/room-view.js',
     'games-view': './src/games/games-view.js',
     'game-detail-view': './src/game-detail/game-detail-view.js'
     */
   },
   output: {
-    //  filename: '[name].js',
-    filename: 'entry.js',
+    filename: '[name].js',
+    //  filename: 'entry.js',
     publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
@@ -27,18 +27,19 @@ module.exports = {
   devServer: {
     compress: true,
     port: 9000,
-    // openPage: 'room-view.html',
-    contentBase: path.join(__dirname, 'public/'),
+    openPage: 'room.html',
+    contentBase: path.join(__dirname, 'dist/'),
     publicPath: 'http://localhost:9000/dist/'
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
-      chunks: ['room-view'],
-      template: './src/rooms/room-view.html',
-      filename: 'room-view.html'
+      chunks: ['room'],
+      template: './src/react-components/room/room.html',
+      filename: 'room.html'
     }),
+    /*
     new HtmlWebpackPlugin({
       inject: true,
       chunks: ['games-view'],
@@ -57,6 +58,7 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html'
     }),
+    */
     new CopyPlugin({
       patterns: [
         { from: './src/assets/profilePictures', to: 'assets/profilePictures' }

@@ -1,13 +1,15 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './room.scss';
 import find from 'lodash-es/find';
 import '../../general-styles/reset-css.css';
 import '../../general-styles/styles.css';
 import { roomService } from '../../services/room-service';
+import { Title, TitleRoom } from '../title/title';
 
 let count = 0;
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
-//  const titleView = 'Rooms';
+const titleView = 'Rooms';
 
 class RoomBoard extends React.Component {
   constructor (props) {
@@ -42,6 +44,7 @@ class RoomBoard extends React.Component {
   render () {
     return (
       <div>
+        {<Title tittle={titleView}></Title>}
         {
           this.state.rooms.map(room => { //  Iterate in the room's array and return a new array with renderRoom output
             return this.renderRoom(room);
@@ -56,17 +59,6 @@ class RoomBoard extends React.Component {
 function Room (props) {
   const room = props.room;
   if (room) {
-    let title = '';
-    const players = room.players;
-    players.forEach(element => {
-      const name = element.username;
-      if (title !== '') {
-        title = title + `<span class='vs-title'> vs </span> <span class='title'>${name}</span>`;
-      }
-      else {
-        title = title + `<span class='title'>${name}</span>`;
-      }
-    });
     if (count === cardClass.length) {
       count = 0;
     }
@@ -74,8 +66,7 @@ function Room (props) {
     count++;
     return (
       <div className={ classCard } onClick={() => showGames(room.id)}>
-        <div className='title' dangerouslySetInnerHTML= {{ __html: title }}>
-        </div>
+        {<TitleRoom room = {room} ></TitleRoom>}
         <div className='leaves'></div>
         <div className='boardgame'>{room.boardGame}</div>
       </div>
@@ -99,3 +90,5 @@ function showGames (roomId) {
 };
 
 export default RoomBoard;
+
+ReactDOM.render(<RoomBoard />, document.getElementById('rooms-container'));
