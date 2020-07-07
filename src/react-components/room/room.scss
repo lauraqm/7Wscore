@@ -10,17 +10,6 @@ $transition: all 0.5s linear;
         flex-wrap: wrap;
     }
 
-    .vs-title {
-        font-size: x-large;
-        bottom: 0;
-    }
-
-    .title {
-        font-size: xx-large;
-        bottom: 0;
-        color: colors.$room-font-color;
-    }
-
     .room-card {
         position: relative;
         vertical-align: top;

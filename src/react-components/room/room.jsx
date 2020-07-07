@@ -6,6 +6,7 @@ import '../../general-styles/reset-css.css';
 import '../../general-styles/styles.css';
 import { roomService } from '../../services/room-service';
 import { Title, TitleRoom } from '../title/title';
+import { MatchPhoto } from '../match-photo/match-photo';
 
 let count = 0;
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
@@ -44,7 +45,7 @@ class RoomBoard extends React.Component {
   render () {
     return (
       <div>
-        {<Title tittle={titleView}></Title>}
+        {<Title title={titleView}></Title>}
         {
           this.state.rooms.map(room => { //  Iterate in the room's array and return a new array with renderRoom output
             return this.renderRoom(room);
@@ -65,14 +66,15 @@ function Room (props) {
     const classCard = 'room-card pointer ' + cardClass[count];
     count++;
     return (
-      <div className={ classCard } onClick={() => showGames(room.id)}>
-        {<TitleRoom room = {room} ></TitleRoom>}
+      <div className={classCard} onClick={() => showGames(room.id)}>
+        {<TitleRoom room={room} ></TitleRoom>}
         <div className='leaves'></div>
-        <div className='boardgame'>{room.boardGame}</div>
+        <div>
+          {<MatchPhoto room={room} ></MatchPhoto>}
+          <div className='boardgame'>{room.boardGame}</div>
+        </div>
       </div>
     );
-    //  const matchPhoto = matchPhotoComponent.create(room);
-    //  cardElement.appendChild(matchPhoto);
   }
 }
 

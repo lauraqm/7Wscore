@@ -1,3 +1,5 @@
+@use 'src/general-styles/_color-schema' as colors;
+
 .main-title {
     display: flex;
     align-items: baseline;
@@ -33,4 +35,19 @@
   flex-grow: 2;
   flex-direction: column;
   margin-bottom: 4px;
+}
+
+.title-room {
+  font-size: xx-large;
+  bottom: 0;
+  color: colors.$room-font-color;
+  padding: 0px 10px 0px 10px;
+  max-width : 200px;
+  word-wrap: break-word;
+}
+
+.vs-title-room {
+  font-size: x-large;
+  bottom: 0;
+  font-size: 1vw;
 }

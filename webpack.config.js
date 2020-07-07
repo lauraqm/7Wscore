@@ -8,7 +8,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    //  entry: './src/index.js'
     room: './src/react-components/room/room.jsx'
     /*
     'games-view': './src/games/games-view.js',
@@ -17,7 +16,6 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    //  filename: 'entry.js',
     publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
@@ -27,7 +25,7 @@ module.exports = {
   devServer: {
     compress: true,
     port: 9000,
-    openPage: 'room.html',
+    openPage: 'room-view.html',
     contentBase: path.join(__dirname, 'dist/'),
     publicPath: 'http://localhost:9000/dist/'
   },
@@ -36,8 +34,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       chunks: ['room'],
-      template: './src/react-components/room/room.html',
-      filename: 'room.html'
+      template: './src/views/room-view.html',
+      filename: 'room-view.html'
     }),
     /*
     new HtmlWebpackPlugin({

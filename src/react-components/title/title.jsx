@@ -7,7 +7,7 @@ class Title extends React.Component {
   render () {
     return (
       <div className='title-view'>
-        <div className='main-title'>{this.props.tittle}</div>
+        <div className='main-title'>{this.props.title}</div>
         <div className="underline-tittle">
           <div className="circle-tittle"></div>
           <div className="line-tittle"></div>
@@ -21,23 +21,21 @@ class Title extends React.Component {
 class TitleRoom extends React.Component {
   render () {
     const room = this.props.room;
-    let title = '';
+    const title = [];
     const players = room.players;
-    players.forEach(element => {
+    players.forEach((element, index) => {
       const name = element.username;
-      if (title !== '') {
-        title = title + `<span class='vs-title'> vs </span> <span class='title'>${name}</span>`;
+      if (title.length > 0) {
+        title.push(<span className='vs-title-room' key={index + 'vs'}> vs </span>);
       }
-      else {
-        title = title + `<span class='title'>${name}</span>`;
-      }
+      title.push(<span className='title' key={index}>{name}</span>);
     });
-    return (<div className='title' dangerouslySetInnerHTML= {{ __html: title }}></div>);
+    return (<div className='title-room'>{ title }</div>);
   }
 };
 
 Title.propTypes = {
-  tittle: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired
 };
 
 TitleRoom.propTypes = {
