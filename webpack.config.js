@@ -8,9 +8,9 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    room: './src/react-components/room/room.jsx'
+    rooms: './src/react-components/room/room.jsx',
+    games: './src/react-components/game-list/game-list.jsx'
     /*
-    'games-view': './src/games/games-view.js',
     'game-detail-view': './src/game-detail/game-detail-view.js'
     */
   },
@@ -33,17 +33,17 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
-      chunks: ['room'],
+      chunks: ['rooms'],
       template: './src/views/room-view.html',
       filename: 'room-view.html'
     }),
-    /*
     new HtmlWebpackPlugin({
       inject: true,
-      chunks: ['games-view'],
-      template: './src/games/games-view.html',
+      chunks: ['games'],
+      template: './src/views/games-view.html',
       filename: 'games-view.html'
     }),
+    /*
     new HtmlWebpackPlugin({
       inject: true,
       chunks: ['game-detail-view'],

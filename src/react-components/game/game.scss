@@ -10,6 +10,7 @@ $border-radius: 50px;
     margin: 21px;
     padding-left: 25px;
     display: flex;
+    text-align: left;
 
     .game-date-players {
         display: flex;
@@ -25,26 +26,29 @@ $border-radius: 50px;
         margin-top: 10px;
     }
 
-    .winnerIcon {
+    .winner-icon {
         width: $icon-size;
         height: $icon-size;
         margin-top: 17px;
         background-size: contain;
         border-image: none;
         background-repeat: no-repeat;
+
+      &.army-icon {
+          background-image: url("../../assets/army.svg");
+      }
+  
+      
+      &.civilian-icon {
+          background-image: url("../../assets/civilian.svg");
+      }
+  
+      &.science-icon {
+          background-image: url("../../assets/science.svg");
+      }
     }
 
-    .armyIcon {
-        background-image: url("../../assets/army.svg");
-    }
 
-    .civilianIcon {
-        background-image: url("../../assets/civilian.svg");
-    }
-
-    .scienceIcon {
-        background-image: url("../../assets/science.svg");
-    }
 
 
     .photo-component {    
@@ -59,7 +63,7 @@ $border-radius: 50px;
         background-size: contain;
         
         &.second-player-photo-overlap {
-            margin-left: 38px;
+            margin-left: 32px;
             z-index: 2;
         }
     

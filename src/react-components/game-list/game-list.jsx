@@ -1,43 +1,72 @@
-import * as gameComponent from '../components/game-component/game-component.js';
-import * as matchPhotosComponet from '../components/match-photos/match-photos.js';
-import * as titleComponent from '../components/title/title.js';
-import { Utils } from '../services/utils.js';
-import { roomService } from '../services/room-service';
-import { gameService } from '../services/game-service';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import '../../general-styles/reset-css.css';
+import '../../general-styles/styles.css';
 
-import '../general-styles/reset-css.css';
-import '../general-styles/styles.css';
+import { TitleRoom } from '../title/title';
+import { MatchPhoto } from '../match-photo/match-photo';
+import { Game } from '../game/game';
 
+import { roomService } from '../../services/room-service';
+import { gameService } from '../../services/game-service';
+import { Utils } from '../../services/utils';
+
+let roomObject = {};
 let roomId;
-const getParams = () => {
-  const query = window.location.search;
-  const urlParams = new URLSearchParams(query);
-  roomId = urlParams.get('roomId');
-};
 
-const getRoomData = () => {
-  roomService.getRoom(roomId).then(function (room) {
-    const tittle = document.querySelector('.title-container');
-    const photoContainer = document.querySelector('.photo-match-container');
-    tittle.appendChild(titleComponent.createTitleRoom(room));
-    photoContainer.appendChild(matchPhotosComponet.create(room));
-    gameService.getGamesByRoom(roomId).then(function (games) {
-      renderGames(room, games);
+class GameList extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      games: null,
+      room: {}
+    };
+  }
+
+  componentDidMount () {
+    this.getParams();
+    this.getRoomData(roomId);
+  };
+
+  getParams () {
+    roomId = Utils.getURLParams('roomId');
+  };
+
+  getRoomData (roomId) {
+    const currentComponent = this;
+    roomService.getRoom(roomId).then(function (room) {
+      roomObject = room;
+      gameService.getGamesByRoom(roomId).then(function (games) {
+        const collection = [];
+        games.forEach(game => {
+          collection.push(game);
+        });
+        currentComponent.setState({ games: collection });
+      });
     });
-  });
+  };
+
+  render () {
+    if (this.state.games === null) {
+      return (<div> Loading... </div>);
+    }
+    else {
+      return (
+        <div>
+          <TitleRoom room={roomObject} ></TitleRoom>
+          <MatchPhoto room={roomObject} ></MatchPhoto>
+          <div className='primary-button'>Stats</div>
+          <div className="primary-button">+ New game</div>
+          {
+            this.state.games.map(game => {
+              return <Game key={game.id} game={game} room={roomObject}></Game>;
+            })
+          }
+        </div>
+      );
+    }
+  }
 };
 
-const renderGames = (room, games) => {
-  const mainNode = document.querySelector('.games-view');
-  games.forEach(game => {
-    Utils.sortPlayers(game.scoreCards);
-    mainNode.appendChild(gameComponent.create(game, room));
-  });
-};
-
-const initialize = () => {
-  getParams();
-  getRoomData();
-};
-
-initialize();
+ReactDOM.render(<GameList />, document.getElementById('games-container'));

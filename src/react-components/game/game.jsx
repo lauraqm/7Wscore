@@ -1,106 +1,127 @@
 import React from 'react';
-import { Utils } from '../../services/utils';
-import * as photoComponent from '../photo-component/photo-component';
 import moment from 'moment';
 import find from 'lodash-es/find';
 import filter from 'lodash-es/filter';
 import PropTypes from 'prop-types';
+import { Photo } from '../photo/photo';
+import { Utils } from '../../services/utils';
 
-import './game-component.scss';
+import './game.scss';
 
 class Game extends React.Component {
   render () {
-    const game = this.props.game;
+    const { game, room } = this.props;
     const formattedDate = moment.unix(game.createdOn.seconds).format('DD/MM/yyyy');
+    Utils.sortPlayers(game.scoreCards);
     return (
       <div className='game-component pointer' >
         <div className="game-date-players">
-          <div className="bold-style">${formattedDate}</div>
-          {
-            game.scoreCards.map((player, key) => {
-              return (<div className='player' key={player.username}> {player.username}:{player.score}</div>);
-            })
-          }
+          <div className="bold-style">{formattedDate}</div>
+          <div>
+            {
+              game.scoreCards.map(player => {
+                return (
+                  <div className='player' key={player.username}>
+                    {player.username}: {player.score}
+                  </div>);
+              })
+            }
+          </div>
         </div>
+        <WinnerData game={game} room={room}></WinnerData>
       </div>
     );
   }
-
-  createWinnerData (game, room) {
-    let icon;
-    let winnerCount = 1; // Default because the most common it's just 1 winner
-    const players = game.scoreCards;
-    //  The first player always is the highest score
-    const highestScore = players[0].score;
-    winnerCount = filter(players, { score: highestScore }).length;
-
-    switch (game.victoryType) {
-      case 'army':
-        icon = this.createVictoryIcon('armyIcon');
-        break;
-      case 'science':
-        icon = this.createVictoryIcon('scienceIcon');
-        break;
-      //  Victory points is the most common value
-      default:
-        icon = this.createVictoryIcon('civilianIcon');
-        break;
-    }
-
-    //const figurePanel = this.createFigurePanel(room, players, winnerCount);
-    //return Utils.htmlToElements(icon + figurePanel);
-  };
-
 
   showGameData (gameId, roomId) {
     window.location.href = `game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
   };
 }
 
-Game.propTypes = {
-  game: PropTypes.object.isRequired
+function WinnerData (props) {
+  let iconClass;
+  const { game, room } = props;
+  let winnerCount = 1; // Default because the most common it's just 1 winner
+  const players = game.scoreCards;
+  //  The first player always is the highest score
+  const highestScore = players[0].score;
+  winnerCount = filter(players, { score: highestScore }).length;
+
+  switch (game.victoryType) {
+    case 'army':
+      iconClass = 'army-icon';
+      break;
+    case 'science':
+      iconClass = 'science-icon';
+      break;
+    //  Victory points is the most common value
+    default:
+      iconClass = 'civilian-icon';
+      break;
+  }
+
+  const classes = `winner-icon ${iconClass}`;
+
+  return (
+    <React.Fragment>
+      <div className={classes}></div>
+      <FigurePanel
+        room={room}
+        players={players}
+        winnerCount={winnerCount}>
+      </FigurePanel>
+    </React.Fragment>
+  );
 };
 
-
-createFigurePanel (room, players, winnerCount) {
+function FigurePanel (props) {
+  const { room, players, winnerCount } = props;
   let img;
-  let colorStyleTriangle = '';
-  let colorStyleFigure = '';
+  let colorStyleTriangle = {};
+  let colorStyleFigure = {};
 
   //  Multiple winners
   if (winnerCount > 2) {
-    img = `<div class="photo-component photo player-photo-result multiWinnerIcon center-contain">+${winnerCount}</div>`;
+    img = <div className="photo-component photo player-photo-result multiWinnerIcon center-contain">+{winnerCount}</div>;
   }
   //  Two winners
   else if (winnerCount === 2) {
     const [player1, player2] = players;
-    const photo1 = photoComponent.createAsString(room, player1.username, 'player-photo-result first-player-photo-overlap');
-    const photo2 = photoComponent.createAsString(room, player2.username, 'player-photo-result second-player-photo-overlap');
-    img = `<div>${photo1}${photo2}</div>`;
+    const photo1 = <Photo room={room} playerName={player1.username} classes={'player-photo-result first-player-photo-overlap'}></Photo>;
+    const photo2 = <Photo room={room} playerName={player2.username} classes={'player-photo-result second-player-photo-overlap'}></Photo>;
+    img = <div>{photo1}{photo2}</div>;
   }
   //  Just 1 winner
   else {
     const result = find(room.players, { username: players[0].username });
-    colorStyleTriangle = `style="border-bottom-color: ${result.color}"`;
-    colorStyleFigure = `style="background-color: ${result.color}"`;
-    const photo = photoComponent.createAsString(room, players[0].username, 'player-photo-result first-player-photo');
-    img = `<div>${photo}</div>`;
+    colorStyleTriangle = { borderBottomColor: result.color };
+    colorStyleFigure = { backgroundColor: result.color };
+    const photo = <Photo room={room} playerName={players[0].username} classes={'player-photo-result first-player-photo'}></Photo>;
+    img = <div>{photo}</div>;
   }
 
-  const template = `
-      <div class="flex-container">
-          <div class="triangle" ${colorStyleTriangle}></div>
-          <div class="figure" ${colorStyleFigure}>
-              ${img}
-          </div>
-      </div>
-  `;
-  return template;
+  return (
+    <div className="flex-container">
+      <div className="triangle" style={colorStyleTriangle}></div>
+      <div className="figure" style={colorStyleFigure}>{img}</div>
+    </div>
+  );
 };
 
-createVictoryIcon (victoryTypeClass) {
-  const icon = `<div class ='winnerIcon ${victoryTypeClass}'></div>`;
-  return icon;
+Game.propTypes = {
+  game: PropTypes.object.isRequired,
+  room: PropTypes.object.isRequired
+};
+
+WinnerData.propTypes = {
+  game: PropTypes.object.isRequired,
+  room: PropTypes.object.isRequired
+};
+
+FigurePanel.propTypes = {
+  room: PropTypes.object.isRequired,
+  players: PropTypes.array.isRequired,
+  winnerCount: PropTypes.number.isRequired
 };
 
 export { Game };

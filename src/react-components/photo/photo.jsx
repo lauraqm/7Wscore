@@ -2,6 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './photo.scss';
 
+/***
+ * Props:
+ * @param   {Object}  room          Room to get photo's URLs
+ * @param   {string}  playerName    Player name to get photo and color
+ * @param   {string}  classes       CSS classes to apply to Photo component
+ * @returns {Object}  Return React Photo component
+ */
+
 class Photo extends React.Component {
   render () {
     const url = this.getPhoto(this.props.room, this.props.playerName);

@@ -30,6 +30,31 @@ class Utils {
       return prevPlayer.score - player.score;
     });
   };
+
+  /*
+  * Extracts one or multiple parameters from the URL search query.
+  * Usages:
+  *   Utils.getURLParams('example')
+  *   Utils.getURLParams(['example1', 'example2'])
+  */
+  static getURLParams (requestedParams) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isArray = Array.isArray(requestedParams);
+
+    if (!isArray) {
+      requestedParams = [requestedParams];
+    }
+    const outputParams = requestedParams.map(param => {
+      return urlParams.get(param);
+    });
+
+    if (isArray) {
+      return outputParams;
+    }
+    else {
+      return outputParams[0];
+    }
+  }
 }
 
 export { Utils };
