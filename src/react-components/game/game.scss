@@ -3,7 +3,6 @@
 $icon-size: 40px;
 $border-radius: 50px;
 
-
 .game-component{  
     border-radius: $border-radius;
     border: colors.$border-component 1px solid;
@@ -38,7 +37,6 @@ $border-radius: 50px;
           background-image: url("../../assets/army.svg");
       }
   
-      
       &.civilian-icon {
           background-image: url("../../assets/civilian.svg");
       }
@@ -48,13 +46,9 @@ $border-radius: 50px;
       }
     }
 
-
-
-
     .photo-component {    
         position: absolute;
     }
-
 
     .player-photo-result {    
         margin-left: 11px; 

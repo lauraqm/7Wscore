@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './room.scss';
 import find from 'lodash-es/find';
-import '../../general-styles/reset-css.css';
-import '../../general-styles/styles.css';
+import '../../general-styles/reset-css.scss';
+import '../../general-styles/styles.scss';
 import { roomService } from '../../services/room-service';
-import { Title, TitleRoom } from '../title/title';
+import { Title } from '../title/title';
 import { MatchPhoto } from '../match-photo/match-photo';
 
 let count = 0;
@@ -45,7 +45,7 @@ class RoomBoard extends React.Component {
   render () {
     return (
       <div>
-        {<Title title={titleView}></Title>}
+        {<Title singleRoomTitle={false} title={titleView}></Title>}
         {
           this.state.rooms.map(room => { //  Iterate in the room's array and return a new array with renderRoom output
             return this.renderRoom(room);
@@ -67,7 +67,7 @@ function Room (props) {
     count++;
     return (
       <div className={classCard} onClick={() => showGames(room.id)}>
-        {<TitleRoom room={room} ></TitleRoom>}
+        {<Title singleRoomTitle={true} room={room} ></Title>}
         <div className='leaves'></div>
         <div>
           {<MatchPhoto room={room} ></MatchPhoto>}

@@ -44,10 +44,12 @@
   padding: 0px 10px 0px 10px;
   max-width : 200px;
   word-wrap: break-word;
+
+  .vs-title {
+    font-size: x-large;
+    bottom: 0;
+    font-size: 1vw;
+  }
 }
 
-.vs-title-room {
-  font-size: x-large;
-  bottom: 0;
-  font-size: 1vw;
-}
+

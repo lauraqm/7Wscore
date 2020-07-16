@@ -10,11 +10,12 @@ import './game.scss';
 
 class Game extends React.Component {
   render () {
-    const { game, room } = this.props;
+    const { game, room, eventClick } = this.props;
     const formattedDate = moment.unix(game.createdOn.seconds).format('DD/MM/yyyy');
     Utils.sortPlayers(game.scoreCards);
+    const classes = (eventClick) ? 'game-component pointer' : 'game-component';
     return (
-      <div className='game-component pointer' >
+      <div className={classes} onClick={() => eventClick(game.id, room.id)} >
         <div className="game-date-players">
           <div className="bold-style">{formattedDate}</div>
           <div>
@@ -32,10 +33,6 @@ class Game extends React.Component {
       </div>
     );
   }
-
-  showGameData (gameId, roomId) {
-    window.location.href = `game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
-  };
 }
 
 function WinnerData (props) {
@@ -65,16 +62,16 @@ function WinnerData (props) {
   return (
     <React.Fragment>
       <div className={classes}></div>
-      <FigurePanel
+      <WinnerContainer
         room={room}
         players={players}
         winnerCount={winnerCount}>
-      </FigurePanel>
+      </WinnerContainer>
     </React.Fragment>
   );
 };
 
-function FigurePanel (props) {
+function WinnerContainer (props) {
   const { room, players, winnerCount } = props;
   let img;
   let colorStyleTriangle = {};
@@ -110,7 +107,8 @@ function FigurePanel (props) {
 
 Game.propTypes = {
   game: PropTypes.object.isRequired,
-  room: PropTypes.object.isRequired
+  room: PropTypes.object.isRequired,
+  eventClick: PropTypes.func
 };
 
 WinnerData.propTypes = {
@@ -118,7 +116,7 @@ WinnerData.propTypes = {
   room: PropTypes.object.isRequired
 };
 
-FigurePanel.propTypes = {
+WinnerContainer.propTypes = {
   room: PropTypes.object.isRequired,
   players: PropTypes.array.isRequired,
   winnerCount: PropTypes.number.isRequired
