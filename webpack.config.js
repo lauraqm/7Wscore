@@ -9,10 +9,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     rooms: './src/react-components/room/room.jsx',
-    games: './src/react-components/game-list/game-list.jsx'
-    /*
-    'game-detail-view': './src/game-detail/game-detail-view.js'
-    */
+    games: './src/react-components/game-list/game-list.jsx',
+    'game-detail': './src/react-components/game-detail/game-detail.jsx'
   },
   output: {
     filename: '[name].js',
@@ -43,20 +41,12 @@ module.exports = {
       template: './src/views/games-view.html',
       filename: 'games-view.html'
     }),
-    /*
     new HtmlWebpackPlugin({
       inject: true,
-      chunks: ['game-detail-view'],
-      template: './src/game-detail/game-detail-view.html',
+      chunks: ['game-detail'],
+      template: './src/views/game-detail-view.html',
       filename: 'game-detail-view.html'
     }),
-    new HtmlWebpackPlugin({
-      inject: true,
-      chunks: ['entry'],
-      template: './public/index.html',
-      filename: 'index.html'
-    }),
-    */
     new CopyPlugin({
       patterns: [
         { from: './src/assets/profilePictures', to: 'assets/profilePictures' }

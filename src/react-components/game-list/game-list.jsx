@@ -1,5 +1,3 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../../general-styles/reset-css.scss';
