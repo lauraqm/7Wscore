@@ -1,13 +1,19 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
 
 import './detail-table.scss';
 
+/***
+ * Props:
+ * @param   {Object}  room          Room to get photo's URLs
+ * @param   {array}   gameDetail     Score details for each player
+ * @returns {Object}  Return React Table Score component
+ */
+
 class DetailTable extends React.Component {
   render () {
-    const { gameDetail, room } = this.props;
+    const gameDetail = this.props.gameDetail;
     return (this.generateTable(gameDetail));
   };
 
@@ -70,9 +76,8 @@ class DetailTable extends React.Component {
             </th>
           );
         }
-        //  If it's a header
+        //  If it's a header/player's photo
         else if (rowIndex === 0) {
-          // tds.push(<th>{columnValue}</th>);
           tds.push(
             <th className=''>
               <Photo room= {room} playerName={columnValue} classes={'center-component small-photo'}></Photo>
