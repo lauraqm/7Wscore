@@ -1,34 +1,33 @@
-html {   
-    font-family: halyard-display, sans-serif;
-    font-weight: lighter;
-    color: #707070;
+@use 'src/general-styles/_color-schema'as colors;
+
+html {
+  font-family: halyard-display, sans-serif;
+  font-weight: lighter;
+  color: colors.$default-font-color;
 }
 
-body{
-    margin: 0 auto;
-    width: 800px;
+body {
+  margin: 0 auto;
+  width: 800px;
 }
-
 
 .main-title {
-    font-size: 42px;
-    text-align: center;
-    color:  #707070;
-    margin-top: 60px;
-    margin-bottom: 15px;
+  font-size: 42px;
+  text-align: center;
+  color: colors.$default-font-color;
+  margin-top: 60px;
+  margin-bottom: 15px;
 }
 
-
-
 .center-contain {
-    text-align: center;
+  text-align: center;
 }
 
 .center-component {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
-.center-component-flex{
+.center-component-flex {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -37,24 +36,28 @@ body{
 
 
 .flex-container {
-    display: flex;
+  display: flex;
 }
 
 .primary-button {
   display: inline;
-    border: 1px solid #C9C9C9;
-    border-radius: 30px;
-    margin: 10px; 
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 30px;
-    padding-right: 30px;
+  border: 1px solid colors.$border-buttons;
+  border-radius: 30px;
+  margin: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@mixin font-weight($size) {
+  font-weight: $size;
 }
 
 .bold-style {
-    font-weight: 400;
+  @include font-weight(400);
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
