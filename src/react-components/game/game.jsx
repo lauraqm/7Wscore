@@ -8,6 +8,14 @@ import { Utils } from '../../services/utils';
 
 import './game.scss';
 
+/***
+ * Props:
+ * @param   {Object}    room          Room to get photo's URLs
+ * @param   {Object}    game          Score details for each player
+ * @param   {Function}  eventClick
+ * @returns {Object}  Return React Table Score component
+ */
+
 class Game extends React.Component {
   render () {
     const { game, room, eventClick } = this.props;
