@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import find from 'lodash-es/find';
 import filter from 'lodash-es/filter';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
@@ -20,12 +19,12 @@ class Game extends React.Component {
   render () {
     const { game, room, eventClick } = this.props;
     const formattedDate = moment.unix(game.createdOn.seconds).format('DD/MM/yyyy');
-    Utils.sortPlayers(game.scoreCards);
+    Utils.sortArrayByProperty(game.scoreCards, 'score');
     const classes = (eventClick) ? 'game-component pointer' : 'game-component';
     return (
       <div className={classes} onClick={() => eventClick(game.id, room.id)} >
         <div className="game-date-players">
-          <div className="bold-style">{formattedDate}</div>
+          <div className="game-date">{formattedDate}</div>
           <div>
             {
               game.scoreCards.map(player => {
@@ -44,27 +43,16 @@ class Game extends React.Component {
 }
 
 function WinnerData (props) {
-  let iconClass;
   const { game, room } = props;
-  let winnerCount = 1; // Default because the most common it's just 1 winner
   const players = game.scoreCards;
-  //  The first player always is the highest score
-  const highestScore = players[0].score;
-  winnerCount = filter(players, { score: highestScore }).length;
+  const winnerCount = getCountWinners(players);
 
-  switch (game.victoryType) {
-    case 'army':
-      iconClass = 'army-icon';
-      break;
-    case 'science':
-      iconClass = 'science-icon';
-      break;
-    //  Victory points is the most common value
-    default:
-      iconClass = 'civilian-icon';
-      break;
-  }
-
+  const icons = {
+    army: 'army-icon',
+    science: 'science-icon',
+    civilian: 'civilian-icon'
+  };
+  const iconClass = icons[game.victoryType];
   const classes = `winner-icon ${iconClass}`;
 
   return (
@@ -79,6 +67,14 @@ function WinnerData (props) {
   );
 };
 
+const getCountWinners = (scoreCards) => {
+  let winnerCount = 1; // Default because the most common it's just 1 winner
+  //  The first player always is the highest score
+  const highestScore = scoreCards[0].score;
+  winnerCount = filter(scoreCards, { score: highestScore }).length;
+  return winnerCount;
+};
+
 function WinnerContainer (props) {
   const { room, players, winnerCount } = props;
   let img;
@@ -91,22 +87,32 @@ function WinnerContainer (props) {
   }
   //  Two winners
   else if (winnerCount === 2) {
-    const [player1, player2] = players;
-    const photo1 = <Photo room={room} playerName={player1.username} classes={'player-photo-result first-player-photo-overlap'}></Photo>;
-    const photo2 = <Photo room={room} playerName={player2.username} classes={'player-photo-result second-player-photo-overlap'}></Photo>;
-    img = <div>{photo1}{photo2}</div>;
+    const photos = [];
+    let classP;
+    players.forEach((element, index) => {
+      const dataPlayer = Utils.buildPlayerObjectFromRoom(room, element.username);
+      if (index === 0) {
+        classP = 'player-photo-result first-player-photo-overlap';
+      }
+      else {
+        classP = 'player-photo-result second-player-photo-overlap';
+      }
+      photos.push(<Photo player={dataPlayer} classes={classP}></Photo>);
+    });
+    img = photos;
   }
   //  Just 1 winner
   else {
-    const result = find(room.players, { username: players[0].username });
-    colorStyleTriangle = { borderBottomColor: result.color };
-    colorStyleFigure = { backgroundColor: result.color };
-    const photo = <Photo room={room} playerName={players[0].username} classes={'player-photo-result first-player-photo'}></Photo>;
-    img = <div>{photo}</div>;
+    const [player] = players;
+    const dataPlayer = Utils.buildPlayerObjectFromRoom(room, player.username);
+    colorStyleTriangle = { borderBottomColor: dataPlayer.color };
+    colorStyleFigure = { backgroundColor: dataPlayer.color };
+    const photo = <Photo player={dataPlayer} classes={'player-photo-result first-player-photo'}></Photo>;
+    img = photo;
   }
 
   return (
-    <div className="flex-container">
+    <div className="winner-wrapper">
       <div className="triangle" style={colorStyleTriangle}></div>
       <div className="figure" style={colorStyleFigure}>{img}</div>
     </div>

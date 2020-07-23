@@ -52,6 +52,6 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
   },
-  "main": "webpack.config.js",
+  "main": "main.js",
   "keywords": []
 }

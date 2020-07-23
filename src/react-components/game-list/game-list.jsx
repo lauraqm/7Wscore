@@ -33,12 +33,8 @@ class GameList extends React.Component {
     Promise.all([getRoom, getGames]).then((result) => {
       const [room, games] = result;
       currentComponent.setState({ room: room });
-      const collection = [];
-      games.forEach(game => {
-        collection.push(game);
-      });
       //  setTimeout(function () {
-      currentComponent.setState({ games: collection });
+      currentComponent.setState({ games: games });
       //  }, 2000);
       ;
     });
@@ -50,12 +46,13 @@ class GameList extends React.Component {
 
   render () {
     if (this.state.games === null) {
-      return <Loading cardsClass={'rome'}></Loading>;
+      return <Loading type={'rome'}></Loading>;
     }
     else {
+      const playerNames = Utils.getPlayersDataByProperty(this.state.room, 'username');
       return (
         <div>
-          <Title singleRoomTitle={false} room={this.state.room} ></Title>
+          <Title underline={true} compound={true} elements={playerNames}></Title>
           <MatchPhoto room={this.state.room} ></MatchPhoto>
           <div className='center-component-flex'>
             <div className='primary-button'>Stats</div>
@@ -72,4 +69,4 @@ class GameList extends React.Component {
   }
 };
 
-ReactDOM.render(<GameList />, document.getElementById('games-container'));
+ReactDOM.render(<GameList />, document.getElementById('games-view'));

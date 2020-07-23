@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './room.scss';
-import find from 'lodash-es/find';
-import '../../general-styles/reset-css.scss';
-import '../../general-styles/styles.scss';
+import { Utils } from '../../services/utils';
 import { roomService } from '../../services/room-service';
 import { Title } from '../title/title';
 import { MatchPhoto } from '../match-photo/match-photo';
+import './room.scss';
+import '../../general-styles/reset-css.scss';
+import '../../general-styles/styles.scss';
 
-let count = 0;
 const cardClass = ['blue-room', 'green-room', 'yellow-room', 'purple-room'];
-const titleView = 'Rooms';
 
 class RoomBoard extends React.Component {
   constructor (props) {
@@ -24,31 +22,28 @@ class RoomBoard extends React.Component {
     const currentComponent = this;
     roomService.getAllRooms()
       .then(function (rooms) {
-        const collection = [];
-        rooms.forEach(room => {
-          collection.push(room);
-        });
-        currentComponent.setState({ rooms: collection });
+        currentComponent.setState({ rooms: rooms });
       });
   };
 
-  renderRoom (room) {
-    const roomObject = find(this.state.rooms, room);
-    return (<Room
-      key={roomObject.id}
-      room={roomObject}
-      onClick = {() => { this.showGames(roomObject.id) }}
-    />
+  renderRoom (room, index) {
+    return (
+      <Room
+        key={room.id}
+        room={room}
+        count={index}
+        onClick={() => { this.showGames(room.id) }}
+      />
     );
   }
 
   render () {
     return (
       <div>
-        {<Title singleRoomTitle={false} title={titleView}></Title>}
+        {<Title underline={true} title={'Rooms'}></Title>}
         {
-          this.state.rooms.map(room => { //  Iterate in the room's array and return a new array with renderRoom output
-            return this.renderRoom(room);
+          this.state.rooms.map((room, index) => { //  Iterate in the room's array and return a new array with renderRoom output
+            return this.renderRoom(room, index);
           })
         }
         {<NewRoomCard/>}
@@ -58,17 +53,15 @@ class RoomBoard extends React.Component {
 }
 
 function Room (props) {
-  const room = props.room;
+  const { room, count } = props;
   if (room) {
-    if (count === cardClass.length) {
-      count = 0;
-    }
-    const classCard = 'room-card pointer ' + cardClass[count];
-    count++;
+    const indexClass = count % cardClass.length;
+    const classCard = 'room-card pointer ' + cardClass[indexClass];
+    const playerNames = Utils.getPlayersDataByProperty(room, 'username');
     return (
       <div className={classCard} onClick={() => showGames(room.id)}>
-        {<Title singleRoomTitle={true} room={room} ></Title>}
-        <div className='leaves'></div>
+        <Title specialClass={'small-title'} underline={false} compound={true} elements={playerNames}></Title>
+        <div className='leaves-illustration'></div>
         <div>
           {<MatchPhoto room={room} ></MatchPhoto>}
           <div className='boardgame'>{room.boardGame}</div>
@@ -78,7 +71,7 @@ function Room (props) {
   }
 }
 
-function NewRoomCard (props) {
+const NewRoomCard = (props) => {
   return (
     <div className = 'pointer room-card new-room'>
       <div className='plus'>+</div>
@@ -87,10 +80,10 @@ function NewRoomCard (props) {
   );
 };
 
-function showGames (roomId) {
+const showGames = (roomId) => {
   window.location.href = `games-view.html?roomId=${roomId}`;
 };
 
 export default RoomBoard;
 
-ReactDOM.render(<RoomBoard />, document.getElementById('rooms-container'));
+ReactDOM.render(<RoomBoard />, document.getElementById('room-view'));

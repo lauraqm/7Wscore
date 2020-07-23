@@ -4,47 +4,30 @@ import './photo.scss';
 
 /***
  * Props:
- * @param   {Object}  room          Room to get photo's URLs
- * @param   {string}  playerName    Player name to get photo and color
+ * @param   {object}  player        Object that contains neccesary data from one player
  * @param   {string}  classes       CSS classes to apply to Photo component
  * @returns {Object}  Return React Photo component
  */
 
 class Photo extends React.Component {
   render () {
-    const url = this.getPhoto(this.props.room, this.props.playerName);
-    if (url) {
-      const style = { backgroundImage: `url('${url}')` };
+    const player = this.props.player;
+    if (player.url) {
+      const style = { backgroundImage: `url('${player.url}')` };
       const classes = `photo-component photo ${this.props.classes}`;
       return (<div className={classes} style={style}></div>);
     }
     else {
-      const firstLetter = this.props.playerName.charAt();
-      const color = this.getColor(this.props.room, this.props.playerName);
-      const style = { backgroundColor: color };
+      const firstLetter = player.username.charAt();
+      const style = { backgroundColor: player.color };
       const classes = `photo-component photo letter ${this.props.classes}`;
       return (<div className={classes} style={style}>{ firstLetter }</div>);
     };
   }
-
-  getPhoto (room, playerName) {
-    const roomPlayerData = room.players.filter(player => {
-      return player.username === playerName;
-    });
-    return roomPlayerData[0].pictureUrl;
-  }
-
-  getColor (room, playerName) {
-    const roomPlayerData = room.players.filter(player => {
-      return player.username === playerName;
-    });
-    return roomPlayerData[0].color;
-  };
 };
 
 Photo.propTypes = {
-  room: PropTypes.object.isRequired,
-  playerName: PropTypes.string.isRequired,
+  player: PropTypes.object.isRequired,
   classes: PropTypes.string
 };
 

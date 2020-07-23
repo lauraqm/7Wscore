@@ -1,9 +1,9 @@
-@use 'src/general-styles/_color-schema'as colors;
+@use 'base';
 
 html {
   font-family: halyard-display, sans-serif;
   font-weight: lighter;
-  color: colors.$default-font-color;
+  color: base.$default-font-color;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
 .main-title {
   font-size: 42px;
   text-align: center;
-  color: colors.$default-font-color;
+  color: base.$default-font-color;
   margin-top: 60px;
   margin-bottom: 15px;
 }
@@ -34,30 +34,20 @@ body {
   align-items: center;
 }
 
-
-.flex-container {
-  display: flex;
-}
-
 .primary-button {
   display: inline;
-  border: 1px solid colors.$border-buttons;
+  border: 1px solid base.$border-buttons;
   border-radius: 30px;
   margin: 10px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
-@mixin font-weight($size) {
-  font-weight: $size;
-}
-
-.bold-style {
-  @include font-weight(400);
+  padding: 8px 30px 8px 30px;
 }
 
 .pointer {
   cursor: pointer;
+  
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.153);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
+import { Utils } from '../../services/utils';
 
 import './detail-table.scss';
 
@@ -24,11 +25,11 @@ class DetailTable extends React.Component {
       scoreCard.username = player.player;
       scoreCards.push(scoreCard);
     });
-    const rows = this.merge(scoreCards);
+    const rows = this.createMatrix(scoreCards);
     return rows;
   };
 
-  merge (players) {
+  createMatrix (players) {
     const rows = ['username', 'civilian', 'scientific', 'commercial', 'guild', 'wonders', 'progress', 'coins', 'military', 'total'];
     const output = [];
     players.forEach((player) => {
@@ -78,9 +79,10 @@ class DetailTable extends React.Component {
         }
         //  If it's a header/player's photo
         else if (rowIndex === 0) {
+          const playerData = Utils.buildPlayerObjectFromRoom(room, columnValue);
           tds.push(
             <th className=''>
-              <Photo room= {room} playerName={columnValue} classes={'center-component small-photo'}></Photo>
+              <Photo player={playerData} classes={'center-component small-photo'}></Photo>
             </th>);
         }
         //  If it's the first column add class to render icons

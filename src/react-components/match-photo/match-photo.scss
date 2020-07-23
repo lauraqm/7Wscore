@@ -6,13 +6,13 @@ $photo-size: 60px;
     justify-content: center;
     margin: 20px;
 
-    .photo.first-overlap {
+    .photo:first-child {
         margin-left: 8px;
         height: $photo-size;
         width: $photo-size;
     }
 
-    .photo.photo-overlap {
+    .photo:not(:first-child){
         margin-left: -10px;
         height: $photo-size;
         width: $photo-size;

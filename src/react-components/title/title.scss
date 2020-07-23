@@ -1,15 +1,14 @@
-@use 'src/general-styles/_color-schema' as colors;
+@use 'src/general-styles/base';
 
 .main-title {
     display: flex;
     align-items: baseline;
     justify-content: center;
 
-    .vs-title {
+    .small-separator {
         font-size: x-large;
         bottom: 0;
-        margin-right: 11px;
-        margin-left: 11px;
+        margin: 0 11px;
     }
   }
 
@@ -24,31 +23,30 @@
   height: 9px;
   width: 9px;
   border-radius: 50%;
-  background-color: #C9C9C9;
+  background-color: base.$title-underline-color;
   
 }
 
 .line-tittle {
   border-bottom: solid 1px;
-  border-color: #C9C9C9;
+  border-color: base.$title-underline-color;
   display: flex;
-  flex-grow: 2;
+  flex-grow: 1;
   flex-direction: column;
   margin-bottom: 4px;
 }
 
-.title-room {
+.small-title {
   font-size: xx-large;
   bottom: 0;
-  color: colors.$room-font-color;
-  padding: 0px 10px 0px 10px;
+  color: base.$room-font-color;
+  padding: 0 2px;
   max-width : 200px;
   word-wrap: break-word;
 
-  .vs-title {
+  .small-separator {
     font-size: x-large;
     bottom: 0;
-    font-size: 1vw;
   }
 }
 

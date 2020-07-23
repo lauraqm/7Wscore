@@ -4,15 +4,16 @@ import './loading.scss';
 
 class Loading extends React.Component {
   render () {
-    const classes = `center-component flip-card ${this.props.cardsClass}`;
+    const type = this.props.type || 'rome';
+    const classes = `center-component flip-card ${type}`;
     return (
       <div className='loading-component'>
         <div className='loading-wrapper'>
           <div id='card' className={classes}></div>
           <div className='center-contain loading-text-container'>
-            <div className='first-dot roll-in-blurred-bottom'>.</div>
-            <div className='second-dot roll-in-blurred-bottom'>.</div>
-            <div className='third-dot roll-in-blurred-bottom'>.</div>
+            <div className='first-dot'>.</div>
+            <div className='second-dot'>.</div>
+            <div className='third-dot'>.</div>
           </div>
         </div>
       </div>
@@ -21,7 +22,7 @@ class Loading extends React.Component {
 }
 
 Loading.propTypes = {
-  cardsClass: PropTypes.string.isRequired
+  type: PropTypes.string
 };
 
 export { Loading };

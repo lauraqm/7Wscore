@@ -36,18 +36,21 @@ class GameDetail extends React.Component {
     const scoreCardPromise = gameService.getScoreCards(roomId, gameId);
     Promise.all([roomPromise, gamePromise, scoreCardPromise]).then(function (promiseResults) {
       const [room, game, scoreCards] = promiseResults;
+      //  setTimeout(function () {
       currentComponent.setState({ game: game, room: room, scoreCards: scoreCards });
+      //  }, 2000);
     });
   };
 
   render () {
     if (this.state.game === null) {
-      return <Loading cardsClass={'rome'}></Loading>;
+      return <Loading type={'egypt'}></Loading>;
     }
     else {
+      const playerNames = Utils.getPlayersDataByProperty(this.state.room, 'username');
       return (
         <div>
-          <Title singleRoomTitle={false} room={this.state.room} ></Title>
+          <Title underline={true} compound={true} elements={playerNames}></Title>
           <Game key={this.state.game.id} game={this.state.game} room={this.state.room}></Game>
           <DetailTable gameDetail={this.state.scoreCards} room= {this.state.room}></DetailTable>
         </div>
