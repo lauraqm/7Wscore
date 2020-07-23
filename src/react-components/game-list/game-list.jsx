@@ -41,7 +41,8 @@ class GameList extends React.Component {
   };
 
   showGameData (gameId, roomId) {
-    window.location.href = `game-detail-view.html?gameId=${gameId}&roomId=${roomId}`;
+    const params = Utils.buildQueryURL({ gameId, roomId });
+    window.location.href = `game-detail-view.html?${params}`;
   };
 
   render () {

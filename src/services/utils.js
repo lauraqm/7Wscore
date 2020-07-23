@@ -36,6 +36,10 @@ class Utils {
     }
   }
 
+  static buildQueryURL (object) {
+    return (new URLSearchParams(object)).toString();
+  };
+
   /**
    * This method takes the data gotten from Data base and adds an unique ID
    * @param {*} snapshot
