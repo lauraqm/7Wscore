@@ -1,0 +1,85 @@
+@use 'src/general-styles/base';
+
+.loading-component {
+  position: fixed;
+  height: 223px;
+  top: 50%;
+  left: 50%;
+  margin: -110px 0 0 -60px;
+
+  .loading-wrapper {
+    vertical-align: middle;
+  }
+
+  .flip-card {
+    position: relative;
+    background-color: transparent;
+    transform-style: preserve-3d;
+    width: 120px;
+    height: 155px;
+    border-radius: 10px;
+    background-color: transparent;
+    animation: flip-vertical-right 2s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite alternate-reverse both;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+
+    @mixin card-style ($background-url-before, $background-url-after) {
+      &::before,
+      &::after {
+        content: "";
+        width: 120px;
+        height: 155px;
+        position: absolute;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        background-size: contain;
+      }
+
+      &::before {
+        background-image: url($background-url-before);
+      }
+
+      &::after {
+        background-image: url($background-url-after);
+        backface-visibility: hidden;
+      }
+    }
+
+    &.rome {
+      @include card-style('../../assets/Colloseum.svg', '../../assets/PisaTower.svg');
+    }
+
+    &.egypt {
+      @include card-style('../../assets/Sphinx.svg', '../../assets/GyzaPyramids.svg');
+    }
+  }
+
+  ///////// For dots ////////
+  .loading-text-container {
+    margin: 20px;
+    font-size: large;
+
+    div {
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+
+  @mixin dot-animation($delay-time) {
+    animation: roll-in-blurred-bottom 1.5s $delay-time infinite both;
+  }
+
+  .first-dot {
+    @include dot-animation (0s);
+  }
+
+  .second-dot {
+    @include dot-animation (0.1s);
+  }
+
+  .third-dot {
+    @include dot-animation (0.2s);
+  }
+
+  
+
+}

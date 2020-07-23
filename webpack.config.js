@@ -8,29 +8,44 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    'room-view': './src/rooms/room-view.js',
-    'games-view': './src/games/games-view.js',
-    'game-detail-view': './src/game-detail/game-detail-view.js'
+    rooms: './src/react-components/room/room.jsx',
+    games: './src/react-components/game-list/game-list.jsx',
+    'game-detail': './src/react-components/game-detail/game-detail.jsx'
   },
   output: {
     filename: '[name].js',
+    publicPath: '/dist/',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: { extensions: ['*', '.js', '.jsx'] },
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
     compress: true,
     port: 9000,
     openPage: 'room-view.html',
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist/'),
+    publicPath: 'http://localhost:9000/dist/'
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
-      chunks: ['room-view'],
-      template: './src/rooms/room-view.html',
+      chunks: ['rooms'],
+      template: './src/views/room-view.html',
       filename: 'room-view.html'
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['games'],
+      template: './src/views/games-view.html',
+      filename: 'games-view.html'
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      chunks: ['game-detail'],
+      template: './src/views/game-detail-view.html',
+      filename: 'game-detail-view.html'
     }),
     new CopyPlugin({
       patterns: [
@@ -67,9 +82,15 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: { presets: ['@babel/env'] }
+          },
+          'eslint-loader'
+        ]
       }
     ]
   }

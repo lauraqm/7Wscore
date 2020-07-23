@@ -1,4 +1,6 @@
+# OS hidden files/folders
 .DS_Store
-node_modules
-dist
-scratch.js
+
+# Folders
+node_modules/
+dist/

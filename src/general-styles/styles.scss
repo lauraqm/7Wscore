@@ -1,0 +1,53 @@
+@use 'base';
+
+html {
+  font-family: halyard-display, sans-serif;
+  font-weight: lighter;
+  color: base.$default-font-color;
+}
+
+body {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.main-title {
+  font-size: 42px;
+  text-align: center;
+  color: base.$default-font-color;
+  margin-top: 60px;
+  margin-bottom: 15px;
+}
+
+.center-contain {
+  text-align: center;
+}
+
+.center-component {
+  margin: 0 auto;
+}
+
+.center-component-flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.primary-button {
+  display: inline;
+  border: 1px solid base.$border-buttons;
+  border-radius: 30px;
+  margin: 10px;
+  padding: 8px 30px 8px 30px;
+}
+
+.pointer {
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.153);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+}

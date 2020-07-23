@@ -1,0 +1,28 @@
+$photo-size: 60px;
+
+.match-photos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+
+    .photo:first-child {
+        margin-left: 8px;
+        height: $photo-size;
+        width: $photo-size;
+    }
+
+    .photo:not(:first-child){
+        margin-left: -10px;
+        height: $photo-size;
+        width: $photo-size;
+    }
+
+    .photo-component.photo.letter {
+        padding-top: 14px;
+        font-size: x-large;
+    }
+
+}
+
+

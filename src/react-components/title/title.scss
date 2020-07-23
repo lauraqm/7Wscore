@@ -1,0 +1,53 @@
+@use 'src/general-styles/base';
+
+.main-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    .small-separator {
+        font-size: x-large;
+        bottom: 0;
+        margin: 0 11px;
+    }
+  }
+
+.underline-tittle {
+  display: flex;
+  width: 570px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.circle-tittle {
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  background-color: base.$title-underline-color;
+  
+}
+
+.line-tittle {
+  border-bottom: solid 1px;
+  border-color: base.$title-underline-color;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.small-title {
+  font-size: xx-large;
+  bottom: 0;
+  color: base.$room-font-color;
+  padding: 0 2px;
+  max-width : 200px;
+  word-wrap: break-word;
+
+  .small-separator {
+    font-size: x-large;
+    bottom: 0;
+  }
+}
+
+

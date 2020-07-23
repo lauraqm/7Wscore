@@ -1,0 +1,13 @@
+/* Typography */
+
+@mixin font-light {
+  font-weight: 100;
+}
+
+@mixin font-medium {
+  font-weight: 300;
+}
+
+@mixin font-bold {
+  font-weight: 400;
+}
