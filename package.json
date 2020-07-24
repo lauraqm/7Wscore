@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/lauraqm/7Wscore#readme",
   "dependencies": {
+    "classnames": "^2.2.6",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
     "firebase": "^7.14.4",
     "lodash-es": "^4.17.15",
     "moment": "^2.25.3"

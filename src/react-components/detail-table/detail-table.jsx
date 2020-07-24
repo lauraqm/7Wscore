@@ -70,7 +70,7 @@ class DetailTable extends React.Component {
         //  If it's the first column and the first row
         if (rowIndex === 0 && columIndex === 0) {
           tds.push(
-            <th>
+            <th key={columIndex}>
               <div className="city-parent">
                 <div className="icon city"></div>
               </div>
@@ -81,20 +81,20 @@ class DetailTable extends React.Component {
         else if (rowIndex === 0) {
           const playerData = Utils.buildPlayerObjectFromRoom(room, columnValue);
           tds.push(
-            <th className=''>
-              <Photo player={playerData} classes={'center-component small-photo'}></Photo>
+            <th key={columIndex}>
+              <Photo className='center-component' player={playerData} isSmallSize={true}></Photo>
             </th>);
         }
         //  If it's the first column add class to render icons
         else if (columIndex === 0) {
           const classes = 'icon ' + columnValue;
-          tds.push(<td><div className={classes}></div></td>);
+          tds.push(<td key={columIndex}><div className={classes}></div></td>);
         }
         else {
-          tds.push(<td>{columnValue}</td>);
+          tds.push(<td key={columIndex}>{columnValue}</td>);
         }
       });
-      body.push(<tr>{tds}</tr>);
+      body.push(<tr key={rowIndex}>{tds}</tr>);
     });
     return body;
   };

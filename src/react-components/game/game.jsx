@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import classNames from 'classnames';
 import filter from 'lodash-es/filter';
+import isNil from 'lodash-es/isNil';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
 import { Utils } from '../../services/utils';
@@ -20,7 +22,11 @@ class Game extends React.Component {
     const { game, room, eventClick } = this.props;
     const formattedDate = moment.unix(game.createdOn.seconds).format('DD/MM/yyyy');
     Utils.sortArrayByProperty(game.scoreCards, 'score');
-    const classes = (eventClick) ? 'game-component pointer' : 'game-component';
+    const classes = classNames(
+      'game-component',
+      { pointer: !isNil(eventClick) }
+    );
+
     return (
       <div className={classes} onClick={() => eventClick(game.id, room.id)} >
         <div className="game-date-players">
@@ -83,21 +89,14 @@ function WinnerContainer (props) {
 
   //  Multiple winners
   if (winnerCount > 2) {
-    img = <div className="photo-component photo player-photo-result multiWinnerIcon center-contain">+{winnerCount}</div>;
+    img = <Photo numericValue={winnerCount}></Photo>;
   }
   //  Two winners
   else if (winnerCount === 2) {
     const photos = [];
-    let classP;
     players.forEach((element, index) => {
       const dataPlayer = Utils.buildPlayerObjectFromRoom(room, element.username);
-      if (index === 0) {
-        classP = 'player-photo-result first-player-photo-overlap';
-      }
-      else {
-        classP = 'player-photo-result second-player-photo-overlap';
-      }
-      photos.push(<Photo player={dataPlayer} classes={classP}></Photo>);
+      photos.push(<Photo key={index} player={dataPlayer}></Photo>);
     });
     img = photos;
   }
@@ -107,7 +106,7 @@ function WinnerContainer (props) {
     const dataPlayer = Utils.buildPlayerObjectFromRoom(room, player.username);
     colorStyleTriangle = { borderBottomColor: dataPlayer.color };
     colorStyleFigure = { backgroundColor: dataPlayer.color };
-    const photo = <Photo player={dataPlayer} classes={'player-photo-result first-player-photo'}></Photo>;
+    const photo = <Photo player={dataPlayer}></Photo>;
     img = photo;
   }
 
