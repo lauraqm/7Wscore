@@ -1,28 +1,33 @@
-@use 'src/general-styles/_color-schema' as colors;
+@use 'src/general-styles/base';
 
-$photo-size: 60px;
-$photo-small-size: 42px;
+$photo-regular-size: 60px;
+$photo-small-size: 40px;
 
-.photo-component {
-    //.photo-component .photo
-    &.photo {
-        width: $photo-size;
-        height: $photo-size;
-        border: solid 2px colors.$photo-border;
-        border-radius: 50%;     
-        background-size: contain;
-    }
-    //.photo-component .photo .letter
-    &.letter {
-        text-align: center;
-        vertical-align: middle;
-        font-size: large;
-        font-weight: 400;
-        color: colors.$photo-letter;
-        padding-top: 12px;
-    }
-    &.small-photo {
-      width: $photo-small-size;
-      height: $photo-small-size;
-    }
+.photo {
+  width: $photo-regular-size;
+  height: $photo-regular-size;
+  border: solid 2px base.$photo-border;
+  border-radius: 50%;
+  background-size: contain;
+
+  &.text-photo {
+    text-align: center;
+    vertical-align: middle;
+    font-size: large;
+    font-weight: 400;
+    color: base.$photo-text;
+    padding-top: 12px;
+  }
+
+  &.small-photo {
+    width: $photo-small-size;
+    height: $photo-small-size;
+  }
+
+
+  &.numeric-photo {
+    background-color: base.$multi-winner-color;
+    color: base.$multi-winner-font-color;
+    padding-top: 16px;
+  }
 }

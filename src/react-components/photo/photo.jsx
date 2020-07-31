@@ -1,34 +1,52 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './photo.scss';
 
 /***
  * Props:
  * @param   {object}  player        Object that contains neccesary data from one player
- * @param   {string}  classes       CSS classes to apply to Photo component
+ * @param   {string}  numericValue  The value in case of the content be a number
+ * @param   {string}  isSmallSize   Flag that indicates if the photo is small
+ * @param   {string}  className     Additional CSS classes
  * @returns {Object}  Return React Photo component
  */
 
 class Photo extends React.Component {
   render () {
-    const player = this.props.player;
-    if (player.url) {
-      const style = { backgroundImage: `url('${player.url}')` };
-      const classes = `photo-component photo ${this.props.classes}`;
-      return (<div className={classes} style={style}></div>);
+    const { player, className, isSmallSize, numericValue } = this.props;
+    const classes = classNames(
+      'photo',
+      className,
+      { 'text-photo': numericValue || !player.url },
+      { 'numeric-photo': numericValue },
+      { 'small-photo': isSmallSize }
+    );
+
+    let content, style;
+    // If it's a number
+    if (numericValue) {
+      content = `+${numericValue}`;
     }
+    // If it's a photo
+    else if (player.url) {
+      style = { backgroundImage: `url('${player.url}')` };
+    }
+    // If it is not a photo this take the first letter of the player
     else {
-      const firstLetter = player.username.charAt();
-      const style = { backgroundColor: player.color };
-      const classes = `photo-component photo letter ${this.props.classes}`;
-      return (<div className={classes} style={style}>{ firstLetter }</div>);
+      style = { backgroundColor: player.color };
+      content = player.username.charAt();
     };
+
+    return (<div className={classes} style={style}>{ content }</div>);
   }
 };
 
 Photo.propTypes = {
-  player: PropTypes.object.isRequired,
-  classes: PropTypes.string
+  numericValue: PropTypes.number,
+  player: PropTypes.object,
+  className: PropTypes.string,
+  isSmallSize: PropTypes.bool
 };
 
 export { Photo };

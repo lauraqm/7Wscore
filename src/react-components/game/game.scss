@@ -46,29 +46,34 @@ $border-radius: 50px;
     }
   }
 
-  .photo-component {
+  .photo {
     position: absolute;
-  }
-
-  .player-photo-result {
-    margin-left: 11px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-size: contain;
-
-    &.second-player-photo-overlap {
-      margin-left: 32px;
-      z-index: 2;
-    }
-
-    &.first-player-photo-overlap {
-      margin-left: -5px;
-    }
   }
 
   .winner-wrapper{
     display: flex;
   }
+
+  .winner-wrapper .photo {
+    margin-left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-size: contain;
+
+    //If there are many winners
+    &:not(:only-child) {
+      //For the first photo 
+      &:first-child {
+        margin-left: -5px;
+      }
+      // For the others photos is necessary to apply overlap
+      &:not(:first-child){
+        margin-left: 32px;
+        z-index: 2;
+      }
+    }
+  }
+
   .triangle {
     border-bottom: 74px solid;
     border-left: 40px solid transparent;
@@ -82,14 +87,6 @@ $border-radius: 50px;
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
     z-index: -1;
-  }
-
-  .multiWinnerIcon {
-    background-color: base.$multi-winner-color;
-    padding-top: 12px;
-    font-size: large;
-    color: base.$multi-winner-font-color;
-    font-weight: 400;
   }
 
   .game-date {
