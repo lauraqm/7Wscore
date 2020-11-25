@@ -27,14 +27,13 @@ class GameList extends React.Component {
   };
 
   getRoomData (roomId) {
-    const currentComponent = this;
     const getRoom = roomService.getRoom(roomId);
     const getGames = gameService.getGamesByRoom(roomId);
     Promise.all([getRoom, getGames]).then((result) => {
       const [room, games] = result;
-      currentComponent.setState({ room: room });
+      this.setState({ room: room });
       //  setTimeout(function () {
-      currentComponent.setState({ games: games });
+      this.setState({ games: games });
       //  }, 2000);
       ;
     });

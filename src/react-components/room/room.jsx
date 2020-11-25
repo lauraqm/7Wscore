@@ -19,10 +19,9 @@ class RoomBoard extends React.Component {
   }
 
   componentDidMount () {
-    const currentComponent = this;
     roomService.getAllRooms()
-      .then(function (rooms) {
-        currentComponent.setState({ rooms: rooms });
+      .then((rooms) => {
+        this.setState({ rooms: rooms });
       });
   };
 

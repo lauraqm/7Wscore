@@ -30,14 +30,13 @@ class GameDetail extends React.Component {
   };
 
   getData (gameId, roomId) {
-    const currentComponent = this;
     const roomPromise = roomService.getRoom(roomId);
     const gamePromise = gameService.getGame(roomId, gameId);
     const scoreCardPromise = gameService.getScoreCards(roomId, gameId);
-    Promise.all([roomPromise, gamePromise, scoreCardPromise]).then(function (promiseResults) {
+    Promise.all([roomPromise, gamePromise, scoreCardPromise]).then((promiseResults) => {
       const [room, game, scoreCards] = promiseResults;
       //  setTimeout(function () {
-      currentComponent.setState({ game: game, room: room, scoreCards: scoreCards });
+      this.setState({ game: game, room: room, scoreCards: scoreCards });
       //  }, 2000);
     });
   };
