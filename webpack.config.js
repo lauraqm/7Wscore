@@ -6,9 +6,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 //  Plug in to move assets to ./dist
 const CopyPlugin = require('copy-webpack-plugin');
 
+const { CheckerPlugin } = require('awesome-typescript-loader');
+
 module.exports = {
   entry: {
-    rooms: './src/react-components/room/room.jsx',
+    rooms: './src/react-components/room-board/room-board.tsx',
     games: './src/react-components/game-list/game-list.jsx',
     'game-detail': './src/react-components/game-detail/game-detail.jsx'
   },
@@ -16,7 +18,7 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
-  resolve: { extensions: ['*', '.js', '.jsx'] },
+  resolve: { extensions: ['*', '.js', '.jsx', '.tsx', 'ts'] },
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
@@ -50,7 +52,8 @@ module.exports = {
       patterns: [
         { from: './src/assets/profilePictures', to: 'assets/profilePictures' }
       ]
-    })
+    }),
+    new CheckerPlugin()
   ],
   module: {
     rules: [
@@ -90,6 +93,11 @@ module.exports = {
           },
           'eslint-loader'
         ]
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
   }
