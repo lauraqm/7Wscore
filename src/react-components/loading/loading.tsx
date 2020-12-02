@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './loading.scss';
 
-class Loading extends React.Component {
+class Loading extends React.Component<LoadingProps> {
   render () {
     const type = this.props.type || 'rome';
     const classes = `center-component flip-card ${type}`;
@@ -20,9 +20,10 @@ class Loading extends React.Component {
     );
   }
 }
-
-Loading.propTypes = {
-  type: PropTypes.string
+type LoadingProps = {
+  type: string;
 };
+
+
 
 export { Loading };

@@ -1,3 +1,10 @@
+// import { firestore } from "firebase";
+import firebase from 'firebase';
+import { IPlayer } from '../model/IPlayer';
+import { IRoom } from '../model/IRoom';
+
+type FirestoreSnapshot = firebase.firestore.QuerySnapshot & firebase.firestore.QueryDocumentSnapshot;
+type FirestoreDocument = firebase.firestore.DocumentData;
 
 class Utils {
   /**
@@ -5,7 +12,7 @@ class Utils {
    * @param {*} array
    * @param {*} property
    */
-  static sortArrayByProperty (array, property) {
+  static sortArrayByProperty (array:[], property:string) {
     return array.sort((a, b) => {
       return b[property] - a[property];
     });
@@ -17,26 +24,27 @@ class Utils {
   *   Utils.getURLParams('example')
   *   Utils.getURLParams(['example1', 'example2'])
   */
-  static getURLParams (requestedParams) {
+  static getURLParams (requestedParams: string | string[]) : (string | null)[] | string | null {
     const urlParams = new URLSearchParams(window.location.search);
     const isArray = Array.isArray(requestedParams);
+    let inputArray : string[];
 
-    if (!isArray) {
-      requestedParams = [requestedParams];
-    }
-    const outputParams = requestedParams.map(param => {
-      return urlParams.get(param);
-    });
+    isArray? inputArray = requestedParams as string[] : inputArray = [requestedParams as string];
+    
+    let outputParams = inputArray.map((param:string) => {
+        return urlParams.get(param);
+      });
 
-    if (isArray) {
-      return outputParams;
-    }
-    else {
-      return outputParams[0];
-    }
-  }
+      if (isArray ) {
+        return outputParams;
+      }
+      else {
+        return outputParams[0];
+      }
+    
+  } 
 
-  static buildQueryURL (object) {
+  static buildQueryURL (object:{}) {
     return (new URLSearchParams(object)).toString();
   };
 
@@ -44,7 +52,7 @@ class Utils {
    * This method takes the data gotten from Data base and adds an unique ID
    * @param {*} snapshot
    */
-  static handleData (snapshot) {
+  static handleData (snapshot: FirestoreSnapshot) : any {
     // If it's a single document
     if (snapshot.exists) {
       const document = snapshot.data();
@@ -53,7 +61,7 @@ class Utils {
     }
     //  If it's a collection
     else {
-      const collection = [];
+      const collection: FirestoreDocument[] = [];
       snapshot.forEach(function (doc) {
         const document = doc.data();
         document.id = doc.id;
@@ -63,16 +71,16 @@ class Utils {
     }
   };
 
-  static getPlayersDataByProperty (room, property) {
-    const players = room.players;
-    const output = [];
+  static getPlayersDataByProperty (room:IRoom, property:string) {
+    const players:IPlayer[] = room.players;
+    const output: string[] = [];
     players.forEach((element) => {
       output.push(element[property]);
     });
     return output;
   };
 
-  static buildPlayerObjectFromRoom (room, username) {
+  static buildPlayerObjectFromRoom (room:IRoom, username:string) {
     const playerData = room.players.filter(player => {
       return player.username === username;
     });

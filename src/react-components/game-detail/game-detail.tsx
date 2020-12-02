@@ -12,24 +12,29 @@ import { roomService } from '../../services/room-service';
 import { gameService } from '../../services/game-service';
 import { Utils } from '../../services/utils';
 import { DetailTable } from '../detail-table/detail-table';
+import { IRoom } from '../../model/IRoom';
+import { IGame } from '../../model/IGame';
+import { IScoreCard } from '../../model/IScoreCard';
 
-class GameDetail extends React.Component {
-  constructor (props) {
+
+class GameDetail extends React.Component<GameProps, GameState> {
+  constructor (props:GameProps) {
     super(props);
     this.state = {
-      room: null,
-      game: null,
-      scoreCards: null
+      room: undefined,
+      game: undefined,
+      scoreCards: undefined
     };
   }
 
   componentDidMount () {
-    const params = Utils.getURLParams(['gameId', 'roomId']);
-    const [gameId, roomId] = params;
+    let params : (string | null)[] | string | null;
+    params = Utils.getURLParams(['gameId', 'roomId']);
+    const [gameId, roomId] : any = params;
     this.getData(gameId, roomId);
   };
 
-  getData (gameId, roomId) {
+  getData (gameId:string, roomId:string) {
     const roomPromise = roomService.getRoom(roomId);
     const gamePromise = gameService.getGame(roomId, gameId);
     const scoreCardPromise = gameService.getScoreCards(roomId, gameId);
@@ -42,20 +47,34 @@ class GameDetail extends React.Component {
   };
 
   render () {
-    if (this.state.game === null) {
+    if (this.state.game === null || undefined) {
       return <Loading type={'egypt'}></Loading>;
     }
     else {
-      const playerNames = Utils.getPlayersDataByProperty(this.state.room, 'username');
-      return (
-        <div>
-          <Title underline={true} compound={true} elements={playerNames}></Title>
-          <Game key={this.state.game.id} game={this.state.game} room={this.state.room}></Game>
-          <DetailTable gameDetail={this.state.scoreCards} room= {this.state.room}></DetailTable>
-        </div>
-      );
+      if(this.state.room) {
+        const room : IRoom = this.state.room;
+        const playerNames = Utils.getPlayersDataByProperty(room, 'username');
+        let gameId = this.state.game?.id;
+        return (
+          <div>
+            <Title underline={true} compound={true} elements={playerNames}></Title>
+            <Game key={gameId} game={this.state.game} room={this.state.room}></Game>
+            <DetailTable gameDetail={this.state.scoreCards} room= {this.state.room}></DetailTable>
+          </div>
+        );
+      }
+      else return null;
     }
   }
 }
+
+type GameProps = {};
+/// Types definition
+type GameState = {
+  room: undefined | IRoom
+  game: undefined | IGame
+  scoreCards: undefined | IScoreCard[]
+}
+
 
 ReactDOM.render(<GameDetail/>, document.getElementById('game-detail'));

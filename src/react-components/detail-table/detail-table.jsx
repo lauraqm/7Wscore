@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
-import { Utils } from '../../services/utils';
+import { Utils } from '../../services/utils.ts';
 
 import './detail-table.scss';
 
