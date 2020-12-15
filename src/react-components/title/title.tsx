@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, ReactComponentElement } from 'react';
 
 import './title.scss';
 
@@ -14,11 +13,11 @@ import './title.scss';
  * @returns {Object}  Return a title component
  */
 
-class Title extends React.Component {
+class Title extends React.Component<TitleProps> {
   render () {
-    let title = this.props.title;
+    let {title, separator, elements} = this.props;
     if (this.props.compound) {
-      title = <CompoundTitle elements={this.props.elements} separator={this.props.separator}></CompoundTitle>;
+      title = <CompoundTitle elements={elements} separator={separator}></CompoundTitle>;
     }
 
     if (this.props.underline) {
@@ -46,25 +45,35 @@ class Title extends React.Component {
  * @param {Array} elements  Array with all elements to concatenate
  * @param {String} separator  Separator between elements
  */
-function CompoundTitle (props) {
+function CompoundTitle (props:CompoundTitleProps) {
   const { elements, separator = 'vs' } = props;
-  const title = [];
-  elements.forEach((element, index) => {
-    if (title.length > 0 && separator) {
-      title.push(<span className='small-separator' key={index + 'sep'}>{separator}</span>);
-    }
-    title.push(<span key={index}> {element} </span>);
-  });
-  return title;
+  let title: JSX.Element[]= [];
+  if (elements){
+    elements.forEach((element, index) => {
+      if (title.length > 0 && separator) {
+        title.push(<span className='small-separator' key={index + 'sep'}>{separator}</span>);
+      }
+      title.push(<span key={index}> {element} </span>);
+    });
+  }
+  return <div>{title}</div>;
 }
 
-Title.propTypes = {
-  underline: PropTypes.bool.isRequired,
-  compound: PropTypes.bool,
-  elements: PropTypes.array,
-  separator: PropTypes.string,
-  title: PropTypes.string,
-  specialClass: PropTypes.string
+
+
+
+type TitleProps = {
+  compound?: boolean;
+  underline?:boolean;
+  elements?: string[] | undefined;
+  separator?: string;
+  title?: string | JSX.Element | JSX.Element[];
+  specialClass?: string;
+} ;
+
+type CompoundTitleProps = {
+  elements?: string[];
+  separator?: string;
 };
 
 export { Title };

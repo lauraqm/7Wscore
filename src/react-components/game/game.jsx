@@ -5,7 +5,7 @@ import filter from 'lodash-es/filter';
 import isNil from 'lodash-es/isNil';
 import PropTypes from 'prop-types';
 import { Photo } from '../photo/photo';
-import { Utils } from '../../services/utils';
+import { Utils } from '../../services/utils.ts';
 
 import './game.scss';
 

@@ -1,4 +1,4 @@
-import { Utils } from '../services/utils';
+import { Utils } from './utils.ts';
 import * as firebaseClient from '../firebase-client.js';
 
 const db = firebaseClient.database;

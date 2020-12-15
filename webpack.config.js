@@ -8,15 +8,15 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    rooms: './src/react-components/room/room.jsx',
-    games: './src/react-components/game-list/game-list.jsx',
-    'game-detail': './src/react-components/game-detail/game-detail.jsx'
+    rooms: './src/react-components/room-board/room-board.tsx',
+    games: './src/react-components/game-list/game-list.tsx',
+    'game-detail': './src/react-components/game-detail/game-detail.tsx'
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
-  resolve: { extensions: ['*', '.js', '.jsx'] },
+  resolve: { extensions: ['*', '.js', '.jsx', '.tsx', '.ts'] },
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
@@ -90,6 +90,11 @@ module.exports = {
           },
           'eslint-loader'
         ]
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   }
