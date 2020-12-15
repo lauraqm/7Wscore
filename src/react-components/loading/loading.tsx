@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './loading.scss';
 
 class Loading extends React.Component<LoadingProps> {

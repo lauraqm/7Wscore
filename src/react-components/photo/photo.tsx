@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import './photo.scss';
+import { IPlayer } from '../../model/IPlayer';
 
 /***
  * Props:
@@ -12,7 +12,7 @@ import './photo.scss';
  * @returns {Object}  Return React Photo component
  */
 
-class Photo extends React.Component {
+class Photo extends React.Component<PhotoProps> {
   render () {
     const { player, className, isSmallSize, numericValue } = this.props;
     const classes = classNames(
@@ -35,18 +35,19 @@ class Photo extends React.Component {
     // If it is not a photo this take the first letter of the player
     else {
       style = { backgroundColor: player.color };
-      content = player.username.charAt();
+      content = player.username.charAt(0);
     };
 
     return (<div className={classes} style={style}>{ content }</div>);
   }
 };
 
-Photo.propTypes = {
-  numericValue: PropTypes.number,
-  player: PropTypes.object,
-  className: PropTypes.string,
-  isSmallSize: PropTypes.bool
+type PhotoProps = {
+  numericValue: number;
+  player : IPlayer;
+  className: string;
+  isSmallSize:boolean;
 };
+
 
 export { Photo };

@@ -12,7 +12,7 @@ class Utils {
    * @param {*} array
    * @param {*} property
    */
-  static sortArrayByProperty (array:[], property:string) {
+  static sortArrayByProperty (array:any[], property:string) {
     return array.sort((a, b) => {
       return b[property] - a[property];
     });
@@ -24,7 +24,9 @@ class Utils {
   *   Utils.getURLParams('example')
   *   Utils.getURLParams(['example1', 'example2'])
   */
-  static getURLParams (requestedParams: string | string[]) : (string | null)[] | string | null {
+  static getURLParams (requestedParams:string ) : string;
+  static getURLParams (requestedParams:string[]):string[];
+  static getURLParams (requestedParams:any ) : any {
     const urlParams = new URLSearchParams(window.location.search);
     const isArray = Array.isArray(requestedParams);
     let inputArray : string[];

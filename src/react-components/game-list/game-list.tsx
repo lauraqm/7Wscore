@@ -25,7 +25,7 @@ class GameList extends React.Component<GameListProps, GameListState> {
   }
 
   componentDidMount () {
-    const roomId:any = Utils.getURLParams('roomId');
+    const roomId = Utils.getURLParams('roomId');
     this.getRoomData(roomId);
   };
 

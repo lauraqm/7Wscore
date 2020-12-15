@@ -28,9 +28,7 @@ class GameDetail extends React.Component<GameProps, GameState> {
   }
 
   componentDidMount () {
-    let params : (string | null)[] | string | null;
-    params = Utils.getURLParams(['gameId', 'roomId']);
-    const [gameId, roomId] : any = params;
+    const [gameId, roomId] = Utils.getURLParams(['gameId', 'roomId']);;
     this.getData(gameId, roomId);
   };
 
